@@ -265,15 +265,15 @@ defineExpose({
                 </div>
               </div>
               <div v-if="computedList?.length" class="min-h-10px"></div>
-              <AntdNull v-else height="6rem" />
+              <NexiNull v-else height="6rem" />
             </a-spin>
           </div>
         </div>
       </template>
       <div class="input-box">
         <span class="text-overflow">{{ valuePro }}</span>
-        <AntdIcon v-if="!openStatus" icon="down" />
-        <AntdIcon v-else icon="up" />
+        <NexiIcon v-if="!openStatus" icon="down" />
+        <NexiIcon v-else icon="up" />
       </div>
     </a-tooltip>
 

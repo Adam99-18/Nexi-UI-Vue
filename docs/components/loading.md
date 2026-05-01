@@ -14,7 +14,7 @@
 :::demo 通过 `loading` 属性控制显示状态。
 ```vue
 <template>
-  <AntdLoading :loading="true" />
+  <NexiLoading :loading="true" />
 </template>
 ```
 :::
@@ -25,7 +25,7 @@
 ```vue
 <template>
   <div>
-    <AntdLoading :loading="true" text="数据加载中，请稍候..." />
+    <NexiLoading :loading="true" text="数据加载中，请稍候..." />
   </div>
 </template>
 ```
@@ -36,7 +36,7 @@
 :::demo 通过 `fontSize`、`fontColor`、`width` 控制外观。
 ```vue
 <template>
-  <AntdLoading
+  <NexiLoading
     :loading="true"
     text="处理中"
     font-size="16px"

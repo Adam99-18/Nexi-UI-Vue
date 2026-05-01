@@ -23,12 +23,12 @@ app.use(Antd).use(NexiUI).mount('#app')
 
 ```vue
 <template>
-  <AntdButton type="primary" auth="user:create">新建</AntdButton>
-  <AntdTable :columns="columns" :data-source="data" />
+  <NexiButton type="primary" auth="user:create">新建</NexiButton>
+  <NexiTable :columns="columns" :data-source="data" />
 </template>
 
 <script setup>
-import { Button as AntdButton, Table as AntdTable } from 'Nexi-ui'
+import { Button as NexiButton, Table as NexiTable } from 'Nexi-ui'
 </script>
 ```
 

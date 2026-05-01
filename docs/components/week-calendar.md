@@ -14,12 +14,12 @@
 ```vue
 <template>
   <div>
-    <AntdWeekCalendar @changeDate="handleDateChange" />
+    <NexiWeekCalendar @changeDate="handleDateChange" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import AntdWeekCalendar from '@/components/antd/week-calendar.vue'
+import NexiWeekCalendar from '@/components/antd/week-calendar.vue'
 
 const handleDateChange = (date: string) => {
   console.log('当前查看日期:', date) // 格式: YYYY/M/D

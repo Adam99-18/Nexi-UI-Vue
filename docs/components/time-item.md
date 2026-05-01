@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdTimeItem placeholder="请选择日期范围" />
+    <NexiTimeItem placeholder="请选择日期范围" />
   </div>
 </template>
 ```
@@ -28,7 +28,7 @@
 ```vue
 <template>
   <div>
-    <AntdTimeItem
+    <NexiTimeItem
       ref="timeRef"
       placeholder="选择时间范围"
       @update:value="(val) => console.log('时间戳:', val)"
@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import AntdTimeItem from '@/components/antd/time-item.vue'
+import NexiTimeItem from '@/components/antd/time-item.vue'
 
 const timeRef = ref()
 

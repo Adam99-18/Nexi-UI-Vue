@@ -15,7 +15,7 @@ Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Toolti
 ```vue
 <template>
   <div style="width: 320px;">
-    <AntdInfoCell
+    <NexiInfoCell
       logo-url="https://via.placeholder.com/40"
       name="设计团队"
       description="负责产品 UI/UX 设计工作，包含视觉设计、交互设计、用户研究"
@@ -31,7 +31,7 @@ Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Toolti
 ```vue
 <template>
   <div style="width: 320px;">
-    <AntdInfoCell
+    <NexiInfoCell
       logo-url="https://via.placeholder.com/40"
       name="张三"
     />

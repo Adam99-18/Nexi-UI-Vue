@@ -49,5 +49,5 @@
 Button 组件内置绿色样式，通过属性切换：
 
 ```vue
-<AntdButton color="green">绿色按钮</AntdButton>
+<NexiButton color="green">绿色按钮</NexiButton>
 ```

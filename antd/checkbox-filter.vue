@@ -22,8 +22,8 @@
       </template>
       <div class="input-box">
         <span>{{ valuePro }}</span>
-        <AntdIcon v-if="!showIconPopover" icon="down" />
-        <AntdIcon v-else icon="up" />
+        <NexiIcon v-if="!showIconPopover" icon="down" />
+        <NexiIcon v-else icon="up" />
       </div>
     </a-popover>
   </div>

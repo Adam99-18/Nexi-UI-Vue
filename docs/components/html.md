@@ -15,8 +15,8 @@
 ```vue
 <template>
   <div>
-    <AntdHtml html="<strong>加粗文字</strong>" />
-    <AntdHtml html="<span style='color: #1677ff'>蓝色文字</span>" />
+    <NexiHtml html="<strong>加粗文字</strong>" />
+    <NexiHtml html="<span style='color: #1677ff'>蓝色文字</span>" />
   </div>
 </template>
 ```

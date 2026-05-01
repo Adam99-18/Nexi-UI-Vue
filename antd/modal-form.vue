@@ -11,23 +11,23 @@ import {
   DatePicker,
   InputPassword,
 } from "ant-design-vue";
-import AntdDropDownSearch from "@/components/antd/drop-down-search.vue";
-import AntdTextArea from "@/components/antd/text-area.vue";
-import AntdView from "@/components/antd/view.vue";
+import NexiDropDownSearch from "@/components/antd/drop-down-search.vue";
+import NexiTextArea from "@/components/antd/text-area.vue";
+import NexiView from "@/components/antd/view.vue";
 
-const Antd: any = {
-  AntdInput: Input,
-  AntdTextArea,
-  AntdInputNumber: InputNumber,
-  AntdSelect: Select,
-  AntdTreeSelect: TreeSelect,
-  AntdRadioGroup: RadioGroup,
-  AntdAntdDropDownSearch: AntdDropDownSearch,
-  AntdCheckbox: Checkbox,
-  AntdCheckboxGroup: CheckboxGroup,
-  AntdDatePicker: DatePicker,
-  AntdInputPassword: InputPassword,
-  AntdView,
+const Nexi: any = {
+  NexiInput: Input,
+  NexiTextArea,
+  NexiInputNumber: InputNumber,
+  NexiSelect: Select,
+  NexiTreeSelect: TreeSelect,
+  NexiRadioGroup: RadioGroup,
+  NexiNexiDropDownSearch: NexiDropDownSearch,
+  NexiCheckbox: Checkbox,
+  NexiCheckboxGroup: CheckboxGroup,
+  NexiDatePicker: DatePicker,
+  NexiInputPassword: InputPassword,
+  NexiView,
 };
 
 /** 定义 props */
@@ -214,7 +214,7 @@ defineExpose({
                 }"
               >
                 <component
-                  :is="Antd[`${column.component}`]"
+                  :is="Nexi[`${column.component}`]"
                   v-model:value="formState[column.field]"
                   v-trim
                   :placeholder="column.componentProps.placeholder"
@@ -257,7 +257,7 @@ defineExpose({
                 </template>
                 <slot v-if="column.useSlot" :name="column.field" />
                 <component
-                  :is="Antd[`${column.component}`]"
+                  :is="Nexi[`${column.component}`]"
                   v-else
                   v-model:value="formState[column.field]"
                   v-trim

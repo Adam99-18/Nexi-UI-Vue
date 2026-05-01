@@ -11,25 +11,25 @@ import {
   InputNumber,
   DatePicker,
 } from "ant-design-vue";
-import AntdDropDownSearch from "@/components/antd/drop-down-search.vue";
-import AntdTextArea from "@/components/antd/text-area.vue";
-import AntdView from "@/components/antd/view.vue";
+import NexiDropDownSearch from "@/components/antd/drop-down-search.vue";
+import NexiTextArea from "@/components/antd/text-area.vue";
+import NexiView from "@/components/antd/view.vue";
 import { cloneDeep } from "lodash-es";
 
 const { resetObj } = useTool();
-const Antd: any = {
-  AntdInput: Input,
-  // AntdTextArea: Textarea,
-  AntdTextArea,
-  AntdInputNumber: InputNumber,
-  AntdSelect: Select,
-  AntdTreeSelect: TreeSelect,
-  AntdRadioGroup: RadioGroup,
-  AntdAntdDropDownSearch: AntdDropDownSearch,
-  AntdCheckbox: Checkbox,
-  AntdCheckboxGroup: CheckboxGroup,
-  AntdDatePicker: DatePicker,
-  AntdView,
+const Nexi: any = {
+  NexiInput: Input,
+  // NexiTextArea: Textarea,
+  NexiTextArea,
+  NexiInputNumber: InputNumber,
+  NexiSelect: Select,
+  NexiTreeSelect: TreeSelect,
+  NexiRadioGroup: RadioGroup,
+  NexiNexiDropDownSearch: NexiDropDownSearch,
+  NexiCheckbox: Checkbox,
+  NexiCheckboxGroup: CheckboxGroup,
+  NexiDatePicker: DatePicker,
+  NexiView,
 };
 const emits = defineEmits(["update:value", "search"]);
 const props = withDefaults(
@@ -134,7 +134,7 @@ defineExpose({
             }"
           >
             <component
-              :is="Antd[`${column.component}`]"
+              :is="Nexi[`${column.component}`]"
               v-model:value="formState[column.field]"
               v-trim
               :placeholder="column.componentProps.placeholder"
@@ -171,7 +171,7 @@ defineExpose({
             </template>
             <slot v-if="column.useSlot" :name="column.field" />
             <component
-              :is="Antd[`${column.component}`]"
+              :is="Nexi[`${column.component}`]"
               v-else
               v-model:value="formState[column.field]"
               v-trim

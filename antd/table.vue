@@ -379,7 +379,7 @@ onBeforeUnmount(() => {
                   </a-menu-item>
                 </a-menu>
               </template>
-              <AntdIcon icon="column-height" :size="20" class="inline-block" @click.prevent />
+              <NexiIcon icon="column-height" :size="20" class="inline-block" @click.prevent />
             </a-dropdown>
             <a-dropdown
               class="components-dropdown"
@@ -404,8 +404,8 @@ onBeforeUnmount(() => {
                         <template #item="{ element, index }">
                           <div class="flex-h p-3px">
                             <div class="draggable w-24px text-center">
-                              <AntdIcon v-if="element.key === 'action'" icon="lock" cursor="not-allowed" :size="14" />
-                              <AntdIcon v-else icon="more" cursor="move" :size="14" />
+                              <NexiIcon v-if="element.key === 'action'" icon="lock" cursor="not-allowed" :size="14" />
+                              <NexiIcon v-else icon="more" cursor="move" :size="14" />
                             </div>
                             <a-checkbox :checked="element.checked" @click="handleColumnCheck(index)">
                               <span>{{ element.title }}</span>
@@ -417,7 +417,7 @@ onBeforeUnmount(() => {
                   </div>
                 </a-card>
               </template>
-              <AntdIcon icon="setting" :size="20" class="inline-block" @click="toggleSortColumnPanel(true)" />
+              <NexiIcon icon="setting" :size="20" class="inline-block" @click="toggleSortColumnPanel(true)" />
             </a-dropdown>
           </a-space>
         </a-space>
@@ -433,7 +433,7 @@ onBeforeUnmount(() => {
     : " -->
     <div class="relative custom-scroll-bar">
       <div v-if="width > 10" class="absolute top-[-8px] left-0 right-0 z-10">
-        <AntdTableScrollBar id="1" ref="scrollbar1" :left="scrollBarLeft" @scroll="handleScroll" @scroll-end="handleScrollEnd" />
+        <NexiTableScrollBar id="1" ref="scrollbar1" :left="scrollBarLeft" @scroll="handleScroll" @scroll-end="handleScrollEnd" />
       </div>
 
       <!-- , y: props.scrollY -->
@@ -469,7 +469,7 @@ onBeforeUnmount(() => {
         <template #emptyText>
           <slot v-if="showEmpty" name="empty"></slot>
           <div v-else class="pt-10% pb-10%">
-            <AntdNull :mt="false" text="暂无数据" />
+            <NexiNull :mt="false" text="暂无数据" />
           </div>
         </template>
       </a-table>
@@ -504,7 +504,7 @@ onBeforeUnmount(() => {
               }"
               @click="changePage(Number(props.pagination.current) - 1)"
             >
-              <AntdIcon icon="left" />
+              <NexiIcon icon="left" />
             </a>
             <span style="margin: 0 15px; font-weight: 600">
               {{ Number(props.pagination.current) || "1" }}
@@ -518,7 +518,7 @@ onBeforeUnmount(() => {
               }"
               @click="changePage(Number(props.pagination.current) + 1)"
             >
-              <AntdIcon icon="right" />
+              <NexiIcon icon="right" />
             </a>
             <!-- <a-pagination
               class="custom-pagination"
@@ -553,7 +553,7 @@ onBeforeUnmount(() => {
           bottom: props.pagination ? '65px' : '-8px',
         }"
       >
-        <AntdTableScrollBar id="2" ref="scrollbar2" :left="scrollBarLeft" @scroll="handleScroll" @scroll-end="handleScrollEnd" />
+        <NexiTableScrollBar id="2" ref="scrollbar2" :left="scrollBarLeft" @scroll="handleScroll" @scroll-end="handleScrollEnd" />
       </div>
     </div>
 

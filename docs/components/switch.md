@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdSwitch :checked="true" />
+    <NexiSwitch :checked="true" />
   </div>
 </template>
 ```
@@ -27,7 +27,7 @@
 ```vue
 <template>
   <div>
-    <AntdSwitch :checked="false" />
+    <NexiSwitch :checked="false" />
   </div>
 </template>
 ```
@@ -39,8 +39,8 @@
 ```vue
 <template>
   <div style="display: flex; flex-direction: column; gap: 8px;">
-    <AntdSwitch :checked="true" :disabled="true" />
-    <AntdSwitch :checked="false" :disabled="true" />
+    <NexiSwitch :checked="true" :disabled="true" />
+    <NexiSwitch :checked="false" :disabled="true" />
   </div>
 </template>
 ```

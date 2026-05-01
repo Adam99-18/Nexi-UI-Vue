@@ -74,7 +74,7 @@ defineExpose({
       class="flex"
       style="align-items: flex-start; min-height: 30px; margin: 5px 18px 0 18px"
     >
-      <AntdIcon icon="exclamation-circle" :size="20" color="#F4AB62" fill />
+      <NexiIcon icon="exclamation-circle" :size="20" color="#F4AB62" fill />
       <div style="margin-left: 8px; font-size: 14px; color: #585858">
         {{ props.content || '' }}
       </div>

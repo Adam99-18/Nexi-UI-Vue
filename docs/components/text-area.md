@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdTextArea placeholder="请输入描述信息" :rows="4" />
+    <NexiTextArea placeholder="请输入描述信息" :rows="4" />
   </div>
 </template>
 ```
@@ -27,7 +27,7 @@
 ```vue
 <template>
   <div>
-    <AntdTextArea
+    <NexiTextArea
       placeholder="请输入内容"
       :rows="3"
       :showCount="true"
@@ -44,7 +44,7 @@
 ```vue
 <template>
   <div>
-    <AntdTextArea
+    <NexiTextArea
       placeholder="最少2行，最多6行"
       :min="2"
       :max="6"

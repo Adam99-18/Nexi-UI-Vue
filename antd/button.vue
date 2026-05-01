@@ -49,7 +49,7 @@ const isPermission = computed(() => {
     :ghost="props.ghost"
   >
     <template #icon>
-      <AntdIcon :icon="props.icon" :color="props.iconColor" />
+      <NexiIcon :icon="props.icon" :color="props.iconColor" />
     </template>
     <slot />
   </a-button>

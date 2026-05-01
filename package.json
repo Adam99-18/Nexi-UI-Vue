@@ -32,7 +32,7 @@
     "dashboard",
     "enterprise",
     "Nexi-ui",
-    "antd-vue"
+    "nexi-vue"
   ],
   "license": "MIT",
   "repository": {

@@ -203,10 +203,25 @@
   transition: none !important;
 }
 
-/* ===== 代码块 ===== */
-.vp-doc div[class*='language-'] {
-  border-radius: 8px;
-  margin: 16px 0;
+/* ===== 代码块 — 与 DemoBlock 容器风格一致 ===== */
+.vp-doc div[class*='language-'],
+.vp-doc div[class*='language-'] > .shiki {
+  margin: 24px 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--vp-c-bg-soft);
+  transition: border-color 0.3s;
+}
+
+.vp-doc div[class*='language-']:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.vp-doc div[class*='language-'] pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  padding: 16px 20px;
 }
 
 /* ===== 暗色主题适配 ===== */

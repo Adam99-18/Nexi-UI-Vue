@@ -18,11 +18,11 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary">主按钮</AntdButton>
-    <AntdButton type="default">默认按钮</AntdButton>
-    <AntdButton type="dashed">虚线按钮</AntdButton>
-    <AntdButton type="link">链接按钮</AntdButton>
-    <AntdButton type="text">文本按钮</AntdButton>
+    <NexiButton type="primary">主按钮</NexiButton>
+    <NexiButton type="default">默认按钮</NexiButton>
+    <NexiButton type="dashed">虚线按钮</NexiButton>
+    <NexiButton type="link">链接按钮</NexiButton>
+    <NexiButton type="text">文本按钮</NexiButton>
   </div>
 </template>
 ```
@@ -34,9 +34,9 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" size="small">小按钮</AntdButton>
-    <AntdButton type="primary" size="middle">中按钮</AntdButton>
-    <AntdButton type="primary" size="large">大按钮</AntdButton>
+    <NexiButton type="primary" size="small">小按钮</NexiButton>
+    <NexiButton type="primary" size="middle">中按钮</NexiButton>
+    <NexiButton type="primary" size="large">大按钮</NexiButton>
   </div>
 </template>
 ```
@@ -48,9 +48,9 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" icon="SearchOutlined">搜索</AntdButton>
-    <AntdButton type="primary" icon="PlusOutlined">新增</AntdButton>
-    <AntdButton icon="EditOutlined" iconColor="#1677ff">编辑</AntdButton>
+    <NexiButton type="primary" icon="SearchOutlined">搜索</NexiButton>
+    <NexiButton type="primary" icon="PlusOutlined">新增</NexiButton>
+    <NexiButton icon="EditOutlined" iconColor="#1677ff">编辑</NexiButton>
   </div>
 </template>
 ```
@@ -62,7 +62,7 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" :ghost="true">幽灵按钮</AntdButton>
+    <NexiButton type="primary" :ghost="true">幽灵按钮</NexiButton>
   </div>
 </template>
 ```
@@ -74,8 +74,8 @@
 ```vue
 <template>
   <div style="display: flex; gap: 8px;">
-    <AntdButton type="primary" :permission="['admin']">管理员可见</AntdButton>
-    <AntdButton :permission="[]">全员可见</AntdButton>
+    <NexiButton type="primary" :permission="['admin']">管理员可见</NexiButton>
+    <NexiButton :permission="[]">全员可见</NexiButton>
   </div>
 </template>
 ```
@@ -105,5 +105,5 @@
 
 - `permission` 为空数组时默认不校验权限，所有用户可见
 - 权限校验失败时按钮完全不渲染 DOM（`v-if`），而非 `display: none`
-- 图标名称对应 `@ant-design/icons-vue` 的导出名，通过 `AntdIcon` 组件动态渲染
+- 图标名称对应 `@ant-design/icons-vue` 的导出名，通过 `NexiIcon` 组件动态渲染
 - 按钮内置 `[data-type="green"]` CSS 样式，可通过自定义 class 启用绿色变体

@@ -14,7 +14,7 @@
 :::demo 默认显示"暂无信息"。
 ```vue
 <template>
-  <AntdNull />
+  <NexiNull />
 </template>
 ```
 :::
@@ -24,7 +24,7 @@
 :::demo 通过 `text` 属性自定义提示文字。
 ```vue
 <template>
-  <AntdNull text="没有找到相关数据" />
+  <NexiNull text="没有找到相关数据" />
 </template>
 ```
 :::
@@ -34,7 +34,7 @@
 :::demo 通过 `height` 调整图片高度。
 ```vue
 <template>
-  <AntdNull text="列表为空" height="6rem" />
+  <NexiNull text="列表为空" height="6rem" />
 </template>
 ```
 :::

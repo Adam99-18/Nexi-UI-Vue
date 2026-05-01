@@ -15,11 +15,11 @@
 ```vue
 <template>
   <div style="display: flex; gap: 12px; align-items: center;">
-    <AntdIcon icon="SearchOutlined" />
-    <AntdIcon icon="PlusOutlined" />
-    <AntdIcon icon="EditOutlined" />
-    <AntdIcon icon="DeleteOutlined" :size="20" />
-    <AntdIcon icon="CheckCircleOutlined" :size="24" />
+    <NexiIcon icon="SearchOutlined" />
+    <NexiIcon icon="PlusOutlined" />
+    <NexiIcon icon="EditOutlined" />
+    <NexiIcon icon="DeleteOutlined" :size="20" />
+    <NexiIcon icon="CheckCircleOutlined" :size="24" />
   </div>
 </template>
 ```
@@ -31,10 +31,10 @@
 ```vue
 <template>
   <div style="display: flex; gap: 12px; align-items: center;">
-    <AntdIcon icon="HeartOutlined" color="#ff4d4f" />
-    <AntdIcon icon="StarOutlined" color="#faad14" />
-    <AntdIcon icon="CheckCircleOutlined" color="#52c41a" />
-    <AntdIcon icon="InfoCircleOutlined" color="#1677ff" />
+    <NexiIcon icon="HeartOutlined" color="#ff4d4f" />
+    <NexiIcon icon="StarOutlined" color="#faad14" />
+    <NexiIcon icon="CheckCircleOutlined" color="#52c41a" />
+    <NexiIcon icon="InfoCircleOutlined" color="#1677ff" />
   </div>
 </template>
 ```
@@ -46,10 +46,10 @@
 ```vue
 <template>
   <div style="display: flex; gap: 12px; align-items: center;">
-    <AntdIcon icon="HeartOutlined" color="#ff4d4f" />
-    <AntdIcon icon="HeartOutlined" color="#ff4d4f" :fill="true" />
-    <AntdIcon icon="StarOutlined" color="#faad14" />
-    <AntdIcon icon="StarOutlined" color="#faad14" :fill="true" />
+    <NexiIcon icon="HeartOutlined" color="#ff4d4f" />
+    <NexiIcon icon="HeartOutlined" color="#ff4d4f" :fill="true" />
+    <NexiIcon icon="StarOutlined" color="#faad14" />
+    <NexiIcon icon="StarOutlined" color="#faad14" :fill="true" />
   </div>
 </template>
 ```

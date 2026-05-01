@@ -413,7 +413,7 @@ defineExpose({
               {{ item.label }}
             </span>
             <span class="p-[3px_3px_3px_5px]" @click.stop="handleClose(item.value)">
-              <AntdIcon icon="close" class="w14px h14px p-[3px_3px_3px_3px] bg-#9999 rounded-full" :size="9" />
+              <NexiIcon icon="close" class="w14px h14px p-[3px_3px_3px_3px] bg-#9999 rounded-full" :size="9" />
             </span>
           </a-tag>
         </div>

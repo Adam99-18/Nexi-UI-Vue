@@ -15,9 +15,9 @@
 ```vue
 <template>
   <div>
-    <AntdImg src="https://via.placeholder.com/100" :size="48" />
-    <AntdImg src="https://via.placeholder.com/100" :size="64" />
-    <AntdImg src="https://via.placeholder.com/100" :size="80" />
+    <NexiImg src="https://via.placeholder.com/100" :size="48" />
+    <NexiImg src="https://via.placeholder.com/100" :size="64" />
+    <NexiImg src="https://via.placeholder.com/100" :size="80" />
   </div>
 </template>
 ```

@@ -16,7 +16,7 @@
 :::demo 最简单的表格，传入 `columns` 和 `dataSource` 即可。
 ```vue
 <template>
-  <AntdTable
+  <NexiTable
     :columns="[
       { title: '名称', dataIndex: 'name', key: 'name', width: 150 },
       { title: '负责人', dataIndex: 'owner', key: 'owner', width: 120 },
@@ -39,7 +39,7 @@
 :::demo 设置 `bordered` 显示边框，`loading` 显示加载状态。
 ```vue
 <template>
-  <AntdTable
+  <NexiTable
     :bordered="true"
     :columns="[
       { title: 'ID', dataIndex: 'id', key: 'id', width: 80 },
@@ -63,7 +63,7 @@
 ```vue
 <template>
   <div>
-    <AntdTable
+    <NexiTable
       size="small"
       :columns="[
         { title: '名称', dataIndex: 'name', key: 'name' },
@@ -85,7 +85,7 @@
 
 ```vue
 <template>
-  <AntdTable
+  <NexiTable
     ref="tableRef"
     :columns="columns"
     :data-source="tableData"
@@ -96,12 +96,12 @@
     size="small"
   >
     <template #action>
-      <AntdButton type="primary" size="small">新增</AntdButton>
+      <NexiButton type="primary" size="small">新增</NexiButton>
     </template>
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'action'">
-        <AntdAction
+        <NexiAction
           :actions="[
             { key: 'edit', label: '编辑' },
             { key: 'delete', label: '删除', confirm: { title: '确认删除？' } },
@@ -109,14 +109,14 @@
         />
       </template>
     </template>
-  </AntdTable>
+  </NexiTable>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import AntdTable from '@/components/antd/table.vue'
-import AntdButton from '@/components/antd/button.vue'
-import AntdAction from '@/components/antd/action.vue'
+import NexiTable from '@/components/antd/table.vue'
+import NexiButton from '@/components/antd/button.vue'
+import NexiAction from '@/components/antd/action.vue'
 
 const loading = ref(false)
 const tableData = ref([
@@ -197,6 +197,6 @@ const pagination = reactive({
 
 - 默认使用自定义分页器（非 ant-design-vue 内置分页），UI 更简洁
 - 拖拽排序需要设置 `draggable="true"` 或在列配置中指定 `rowDrag: true`
-- 自定义水平滚动条组件 `AntdTableScrollBar` 自动适配
+- 自定义水平滚动条组件 `NexiTableScrollBar` 自动适配
 - 列显隐控制通过工具栏中的 popover 实现，支持拖拽排序列顺序
 - `pagination.onChange` 签名：`(current, pageSize, filters, sorter) => void`

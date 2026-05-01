@@ -18,12 +18,12 @@ export default {
         const comp = mod.default || mod
         if (!comp) continue
         const filename = path.split('/').pop()!.replace('.vue', '')
-        const name = 'Antd' + filename
+        const name = 'Nexi' + filename
           .split('-')
           .map(s => s.charAt(0).toUpperCase() + s.slice(1))
           .join('')
         app.component(name, comp)
-        app.component(`antd-${filename}`, comp)
+        app.component(`nexi-${filename}`, comp)
       }
     }
   },

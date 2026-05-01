@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdCheckboxFilter
+    <NexiCheckboxFilter
       :options="[
         { label: '类型 A', value: 'a' },
         { label: '类型 B', value: 'b' },
@@ -34,7 +34,7 @@
 ```vue
 <template>
   <div>
-    <AntdCheckboxFilter
+    <NexiCheckboxFilter
       :options="[
         { label: '进行中', value: 'active' },
         { label: '已完成', value: 'done' },

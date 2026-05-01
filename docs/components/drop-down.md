@@ -15,15 +15,15 @@
 :::demo 通过 `options` 定义菜单项，默认 slot 传入触发器。
 ```vue
 <template>
-  <AntdDropDown
+  <NexiDropDown
     :options="[
       { label: '编辑', key: 'edit', action: 'edit' },
       { label: '删除', key: 'delete', action: 'delete' },
       { label: '导出', key: 'export', action: 'export' },
     ]"
   >
-    <AntdButton>操作</AntdButton>
-  </AntdDropDown>
+    <NexiButton>操作</NexiButton>
+  </NexiDropDown>
 </template>
 ```
 :::
@@ -33,7 +33,7 @@
 :::demo 设置 `divider: true` 的项会渲染为分隔线。
 ```vue
 <template>
-  <AntdDropDown
+  <NexiDropDown
     :options="[
       { label: '查看详情', key: 'view' },
       { label: '编辑', key: 'edit' },
@@ -41,8 +41,8 @@
       { label: '删除', key: 'delete', action: 'delete' },
     ]"
   >
-    <AntdButton type="link">更多</AntdButton>
-  </AntdDropDown>
+    <NexiButton type="link">更多</NexiButton>
+  </NexiDropDown>
 </template>
 ```
 :::

@@ -14,9 +14,9 @@
 :::demo 通过 `columns` 配置搜索字段，自动生成搜索表单。
 ```vue
 <template>
-  <AntdSearchForm
+  <NexiSearchForm
     :columns="[
-      { label: '关键词', field: 'keyword', component: 'AntdInput', placeholder: '请输入关键词' },
+      { label: '关键词', field: 'keyword', component: 'NexiInput', placeholder: '请输入关键词' },
     ]"
   />
 </template>
@@ -30,7 +30,7 @@
 ```vue
 <template>
   <div>
-    <AntdSearchForm
+    <NexiSearchForm
       ref="searchRef"
       :value="searchData"
       :columns="columns"
@@ -39,7 +39,7 @@
     />
 
     <!-- 表格区域 -->
-    <AntdTable
+    <NexiTable
       :columns="tableColumns"
       :data-source="list"
       :pagination="pagination"
@@ -49,8 +49,8 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import AntdSearchForm from '@/components/antd/search-form.vue'
-import AntdTable from '@/components/antd/table.vue'
+import NexiSearchForm from '@/components/antd/search-form.vue'
+import NexiTable from '@/components/antd/table.vue'
 
 const searchData = reactive({
   keyword: '',
@@ -62,13 +62,13 @@ const columns = [
   {
     label: '关键词',
     field: 'keyword',
-    component: 'AntdInput',
+    component: 'NexiInput',
     placeholder: '请输入名称/编码',
   },
   {
     label: '状态',
     field: 'status',
-    component: 'AntdSelect',
+    component: 'NexiSelect',
     placeholder: '请选择状态',
     options: [
       { label: '全部', value: '' },
@@ -121,6 +121,6 @@ const handleReset = (values: any) => {
 ## 注意事项
 
 - 搜索按钮使用自定义图标（非 ant-design-vue 默认样式）
-- 支持额外控件类型：`AntdDropDownSearch`、`AntdDropDown`、`AntdTimeItem`、`AntdCheckboxFilter`、`AntdCheckboxFilterSearch`、`RangePicker`
+- 支持额外控件类型：`NexiDropDownSearch`、`NexiDropDown`、`NexiTimeItem`、`NexiCheckboxFilter`、`NexiCheckboxFilterSearch`、`RangePicker`
 - `customRequestOptions` 为 true 时，columns 中的 options 按需请求
 - 重置时恢复到初始默认值，并触发 `search` 事件

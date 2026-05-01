@@ -14,10 +14,10 @@
 :::demo 通过 `columns` 配置表单结构，组件自动渲染对应控件。
 ```vue
 <template>
-  <AntdForm
+  <NexiForm
     :columns="[
-      { label: '名称', field: 'name', component: 'AntdInput', placeholder: '请输入名称' },
-      { label: '描述', field: 'desc', component: 'AntdTextArea', placeholder: '请输入描述', rows: 3 },
+      { label: '名称', field: 'name', component: 'NexiInput', placeholder: '请输入名称' },
+      { label: '描述', field: 'desc', component: 'NexiTextArea', placeholder: '请输入描述', rows: 3 },
     ]"
   />
 </template>
@@ -30,7 +30,7 @@
 
 ```vue
 <template>
-  <AntdForm
+  <NexiForm
     ref="formRef"
     :value="formData"
     :columns="columns"
@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import AntdForm from '@/components/antd/form.vue'
+import NexiForm from '@/components/antd/form.vue'
 
 const formRef = ref()
 const formData = reactive({
@@ -54,14 +54,14 @@ const columns = [
   {
     label: '名称',
     field: 'name',
-    component: 'AntdInput',
+    component: 'NexiInput',
     placeholder: '请输入名称',
     rules: [{ required: true, message: '名称为必填' }],
   },
   {
     label: '类型',
     field: 'type',
-    component: 'AntdSelect',
+    component: 'NexiSelect',
     placeholder: '请选择类型',
     options: [
       { label: '类型 A', value: 'a' },
@@ -71,7 +71,7 @@ const columns = [
   {
     label: '状态',
     field: 'status',
-    component: 'AntdRadioGroup',
+    component: 'NexiRadioGroup',
     options: [
       { label: '启用', value: 1 },
       { label: '禁用', value: 0 },
@@ -80,7 +80,7 @@ const columns = [
   {
     label: '备注',
     field: 'remark',
-    component: 'AntdTextArea',
+    component: 'NexiTextArea',
     placeholder: '请输入备注',
     rows: 3,
   },
@@ -134,6 +134,6 @@ const handleSubmit = (values: any) => {
 
 ## 注意事项
 
-- 支持的 component 类型：`AntdInput`、`AntdTextArea`、`AntdInputNumber`、`AntdSelect`、`AntdTreeSelect`、`AntdRadioGroup`、`AntdCheckbox`、`AntdCheckboxGroup`、`AntdDatePicker`、`AntdAntdDropDownSearch`、`AntdView`
+- 支持的 component 类型：`NexiInput`、`NexiTextArea`、`NexiInputNumber`、`NexiSelect`、`NexiTreeSelect`、`NexiRadioGroup`、`NexiCheckbox`、`NexiCheckboxGroup`、`NexiDatePicker`、`NexiNexiDropDownSearch`、`NexiView`
 - `useSlot: true` 时需要通过具名插槽 `<fieldName>` 自定义渲染该字段
 - `useLabelSlot: true` 时通过 `label-<fieldName>` 插槽自定义标签

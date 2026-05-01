@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" danger>删除数据</AntdButton>
+    <NexiButton type="primary" danger>删除数据</NexiButton>
   </div>
 </template>
 ```
@@ -28,11 +28,11 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" danger @click="modalTipRef.open({ id: 1 })">
+    <NexiButton type="primary" danger @click="modalTipRef.open({ id: 1 })">
       删除项目
-    </AntdButton>
+    </NexiButton>
 
-    <AntdModalTip
+    <NexiModalTip
       ref="modalTipRef"
       title="确认删除"
       content="删除后将无法恢复，确定要继续吗？"
@@ -44,8 +44,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import AntdButton from '@/components/antd/button.vue'
-import AntdModalTip from '@/components/antd/modal-tip.vue'
+import NexiButton from '@/components/antd/button.vue'
+import NexiModalTip from '@/components/antd/modal-tip.vue'
 
 const modalTipRef = ref()
 

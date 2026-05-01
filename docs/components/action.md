@@ -14,7 +14,7 @@
 :::demo 通过 `actions` 数组定义操作按钮。
 ```vue
 <template>
-  <AntdAction
+  <NexiAction
     :actions="[
       { key: 'view', label: '查看', onClick: () => console.log('view') },
       { key: 'edit', label: '编辑', onClick: () => console.log('edit') },
@@ -30,7 +30,7 @@
 :::demo 设置 `confirm` 属性为操作添加确认提示。
 ```vue
 <template>
-  <AntdAction
+  <NexiAction
     :divider="true"
     :actions="[
       { key: 'view', label: '查看' },
@@ -52,7 +52,7 @@
 :::demo 通过 `tooltip` 属性为操作添加悬浮提示。
 ```vue
 <template>
-  <AntdAction
+  <NexiAction
     :divider="true"
     :actions="[
       { key: 'view', label: '查看', tooltip: { title: '查看详情' } },

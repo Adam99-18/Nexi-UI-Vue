@@ -1,25 +1,25 @@
 <script lang="ts" setup>
 import type { QueryForm } from "@/composables/useQueryForm";
 import { Input, Select, TreeSelect, RadioGroup, Cascader, RangePicker } from "ant-design-vue";
-import AntdDropDownSearch from "@/components/antd/drop-down-search.vue";
-import AntdDropDown from "@/components/antd/drop-down.vue";
-import AntdTimeItem from "@/components/antd/time-item.vue";
-import AntdCheckboxFilter from "@/components/antd/checkbox-filter.vue";
-import AntdCheckboxFilterSearch from "@/components/antd/checkbox-filter-search.vue";
-const Antd: any = {
+import NexiDropDownSearch from "@/components/antd/drop-down-search.vue";
+import NexiDropDown from "@/components/antd/drop-down.vue";
+import NexiTimeItem from "@/components/antd/time-item.vue";
+import NexiCheckboxFilter from "@/components/antd/checkbox-filter.vue";
+import NexiCheckboxFilterSearch from "@/components/antd/checkbox-filter-search.vue";
+const Nexi: any = {
   Input,
   Select,
-  AntdInput: Input,
-  AntdSelect: Select,
+  NexiInput: Input,
+  NexiSelect: Select,
   TreeSelect,
   RadioGroup,
-  AntdDropDownSearch,
-  AntdTimeItem,
-  AntdDropDown,
+  NexiDropDownSearch,
+  NexiTimeItem,
+  NexiDropDown,
   Cascader,
   RangePicker,
-  AntdCheckboxFilter,
-  AntdCheckboxFilterSearch,
+  NexiCheckboxFilter,
+  NexiCheckboxFilterSearch,
 };
 const emits = defineEmits(["update:value", "search", "reset"]);
 const props = withDefaults(
@@ -123,7 +123,7 @@ watch(
                 </span>
               </template> -->
             <component
-              :is="Antd[`${column.component}`]"
+              :is="Nexi[`${column.component}`]"
               ref="componentRef"
               v-model:value="formState[column.field]"
               v-trim
@@ -141,12 +141,12 @@ watch(
               :show-search="
                 typeof column.componentProps?.showSearch === 'boolean'
                   ? column.componentProps?.showSearch
-                  : column.component === 'AntdSelect'
+                  : column.component === 'NexiSelect'
                     ? true
                     : false
               "
               :filter-option="
-                column.component === 'AntdSelect'
+                column.component === 'NexiSelect'
                   ? (input: any, option: any) => {
                       return option.label && typeof option.label === 'string'
                         ? option.label.toLowerCase().includes(input.toLowerCase())
@@ -163,7 +163,7 @@ watch(
                 minWidth: column.minWidth || 'auto',
               }"
               @select="
-                ['AntdSelect', 'AntdCheckboxFilterSearch', 'AntdCheckboxFilter'].includes(String(column.component))
+                ['NexiSelect', 'NexiCheckboxFilterSearch', 'NexiCheckboxFilter'].includes(String(column.component))
                   ? select($event, column)
                   : undefined
               "
@@ -184,13 +184,13 @@ watch(
             }" -->
         <!-- <a-col :span="6"> -->
         <a-form-item class="mb-16px">
-          <!-- <AntdButton type="primary" icon="search" html-type="submit">
+          <!-- <NexiButton type="primary" icon="search" html-type="submit">
               搜索
-            </AntdButton>
-            <AntdButton type="default" @click="reset()">重置</AntdButton>
-            <AntdButton v-if="columns?.length > 6" type="default" @click="toggleShow()">
+            </NexiButton>
+            <NexiButton type="default" @click="reset()">重置</NexiButton>
+            <NexiButton v-if="columns?.length > 6" type="default" @click="toggleShow()">
               {{ showMoreSearch ? "收起" : "展开" }}
-            </AntdButton> -->
+            </NexiButton> -->
           <div class="inline-block">
             <a-flex class="ant-btn-search-box flex-center-center">
               <div class="pl-0 pr-0">

@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdDropDownFilter
+    <NexiDropDownFilter
       placeholder="请选择知识库"
       placeholder-input="搜索知识库名称"
       :options="[

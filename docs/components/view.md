@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdView text="这是一段只读展示文本" />
+    <NexiView text="这是一段只读展示文本" />
   </div>
 </template>
 ```
@@ -27,9 +27,9 @@
 ```vue
 <template>
   <div style="display: flex; flex-direction: column; gap: 8px;">
-    <AntdView :text="12800" />
-    <AntdView :text="99.5" />
-    <AntdView :text="0" />
+    <NexiView :text="12800" />
+    <NexiView :text="99.5" />
+    <NexiView :text="0" />
   </div>
 </template>
 ```
@@ -43,15 +43,15 @@
   <div style="max-width: 400px; background: var(--vp-c-bg-soft); padding: 16px; border-radius: 8px;">
     <div style="display: flex; margin-bottom: 8px;">
       <span style="width: 80px; color: var(--vp-c-text-2);">名称：</span>
-      <AntdView text="Nexi-UI 组件库" />
+      <NexiView text="Nexi-UI 组件库" />
     </div>
     <div style="display: flex; margin-bottom: 8px;">
       <span style="width: 80px; color: var(--vp-c-text-2);">版本：</span>
-      <AntdView text="1.0.0" />
+      <NexiView text="1.0.0" />
     </div>
     <div style="display: flex;">
       <span style="width: 80px; color: var(--vp-c-text-2);">描述：</span>
-      <AntdView text="企业级中后台 Vue 3 组件库" />
+      <NexiView text="企业级中后台 Vue 3 组件库" />
     </div>
   </div>
 </template>

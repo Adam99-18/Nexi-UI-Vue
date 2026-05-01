@@ -37,6 +37,15 @@ const displaySource = computed(() =>
   activeLang.value === 'ts' ? tsSource.value : jsSource.value
 )
 
+/** 将描述中 `keyword` 转为高亮 <code> */
+const highlightedDescription = computed(() => {
+  if (!props.description) return ''
+  return props.description.replace(
+    /`([^`]+)`/g,
+    '<code class="demo-desc-code">$1</code>'
+  )
+})
+
 /** 服务端 Shiki 高亮后的 HTML */
 const displayHtml = computed(() => {
   if (activeLang.value === 'js' && props.highlightedJs) {
@@ -74,10 +83,7 @@ async function copyCode() {
   <div class="demo-block">
     <!-- 描述区 -->
     <div class="demo-block-desc" v-if="description">
-      <svg class="demo-block-desc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
-      </svg>
-      <span>{{ description }}</span>
+      <span v-html="highlightedDescription" />
     </div>
 
     <!-- 源码区：服务端 Shiki 高亮，按语言切换 -->
@@ -135,9 +141,13 @@ async function copyCode() {
   background: var(--vp-c-bg);
 }
 
-.demo-block-desc-icon {
+.demo-block-desc :deep(.demo-desc-code) {
+  padding: 2px 6px;
+  font-size: 13px;
   color: var(--vp-c-brand-1);
-  flex-shrink: 0;
+  background: var(--vp-c-brand-soft);
+  border-radius: 4px;
+  font-family: var(--vp-font-mono);
 }
 
 .demo-block-code-wrapper :deep(pre.shiki) {

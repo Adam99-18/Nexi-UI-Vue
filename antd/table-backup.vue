@@ -227,7 +227,7 @@ watch(
                   </a-menu-item>
                 </a-menu>
               </template>
-              <AntdIcon
+              <NexiIcon
                 icon="column-height"
                 :size="20"
                 class="inline-block"
@@ -272,13 +272,13 @@ watch(
                         <template #item="{ element, index }">
                           <div class="flex-h p-3px">
                             <div class="draggable w-24px text-center">
-                              <AntdIcon
+                              <NexiIcon
                                 v-if="element.key === 'action'"
                                 icon="lock"
                                 cursor="not-allowed"
                                 :size="14"
                               />
-                              <AntdIcon v-else icon="more" cursor="move" :size="14" />
+                              <NexiIcon v-else icon="more" cursor="move" :size="14" />
                             </div>
                             <a-checkbox
                               :checked="element.checked"
@@ -293,7 +293,7 @@ watch(
                   </div>
                 </a-card>
               </template>
-              <AntdIcon
+              <NexiIcon
                 icon="setting"
                 :size="20"
                 class="inline-block"

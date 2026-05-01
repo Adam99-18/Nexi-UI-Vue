@@ -109,7 +109,7 @@
     <!-- 待办事项 -->
     <div class="week-schedule-note">
       <div v-if="isHasNote(currentDate).length === 0">
-        <AntdNull
+        <NexiNull
           text="暂无日程安排"
           :mt="false"
           style="margin-top: 1.0625rem"

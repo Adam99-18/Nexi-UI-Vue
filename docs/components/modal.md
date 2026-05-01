@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary">打开弹窗</AntdButton>
+    <NexiButton type="primary">打开弹窗</NexiButton>
   </div>
 </template>
 ```
@@ -28,11 +28,11 @@
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" @click="modalRef.open({ id: 1, name: '示例' })">
+    <NexiButton type="primary" @click="modalRef.open({ id: 1, name: '示例' })">
       打开弹窗
-    </AntdButton>
+    </NexiButton>
 
-    <AntdModal
+    <NexiModal
       ref="modalRef"
       title="编辑信息"
       @ok="handleOk"
@@ -40,14 +40,14 @@
     >
       <p>弹窗内容区域</p>
       <p>你可以在这里放表单、详情或其他内容</p>
-    </AntdModal>
+    </NexiModal>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import AntdButton from '@/components/antd/button.vue'
-import AntdModal from '@/components/antd/modal.vue'
+import NexiButton from '@/components/antd/button.vue'
+import NexiModal from '@/components/antd/modal.vue'
 
 const modalRef = ref()
 
@@ -64,7 +64,7 @@ const handleOk = (params: any) => {
 ```vue
 <template>
   <div>
-    <AntdButton type="primary">自定义底部</AntdButton>
+    <NexiButton type="primary">自定义底部</NexiButton>
   </div>
 </template>
 ```
@@ -75,11 +75,11 @@ const handleOk = (params: any) => {
 ```vue
 <template>
   <div>
-    <AntdButton type="primary" @click="modal2Ref.open()">
+    <NexiButton type="primary" @click="modal2Ref.open()">
       自定义底部弹窗
-    </AntdButton>
+    </NexiButton>
 
-    <AntdModal
+    <NexiModal
       ref="modal2Ref"
       title="自定义底部"
       :showFooter="false"
@@ -88,11 +88,11 @@ const handleOk = (params: any) => {
 
       <template #footer>
         <div style="display: flex; gap: 8px; justify-content: flex-end;">
-          <AntdButton @click="modal2Ref.close()">取消</AntdButton>
-          <AntdButton type="primary" @click="modal2Ref.close()">提交</AntdButton>
+          <NexiButton @click="modal2Ref.close()">取消</NexiButton>
+          <NexiButton type="primary" @click="modal2Ref.close()">提交</NexiButton>
         </div>
       </template>
-    </AntdModal>
+    </NexiModal>
   </div>
 </template>
 ```

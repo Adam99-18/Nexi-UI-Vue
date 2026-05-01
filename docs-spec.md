@@ -52,7 +52,7 @@ docs/
 
 ​```vue
 <template>
-  <AntdButton type="primary" @click="handleClick">主按钮</AntdButton>
+  <NexiButton type="primary" @click="handleClick">主按钮</NexiButton>
 </template>
 
 <script lang="ts" setup>
@@ -185,7 +185,7 @@ interface ButtonProps {
 
 ## 四、全局文案规范
 
-- 组件名在正文中始终用 PascalCase：`AntdButton`、`AntdTable`
+- 组件名在正文中始终用 PascalCase：`NexiButton`、`NexiTable`
 - Props/Events 名写在反引号中：`` `type` ``、`` `click` ``
 - 类型值写在反引号中：`` `primary` ``、`` `boolean` ``
 - 表格中对齐方式：说明列左对齐，其余列居中

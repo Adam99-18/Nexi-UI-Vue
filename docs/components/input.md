@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdInput placeholder="请输入内容" />
+    <NexiInput placeholder="请输入内容" />
   </div>
 </template>
 ```
@@ -27,7 +27,7 @@
 ```vue
 <template>
   <div>
-    <AntdInput placeholder="最多输入20个字符" :maxLength="20" />
+    <NexiInput placeholder="最多输入20个字符" :maxLength="20" />
   </div>
 </template>
 ```

@@ -15,7 +15,7 @@
 ```vue
 <template>
   <div>
-    <AntdCheckboxFilterSearch
+    <NexiCheckboxFilterSearch
       placeholder="请选择文件"
       placeholder-input="搜索文件名称"
       :options="[
