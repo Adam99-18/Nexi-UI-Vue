@@ -85,7 +85,7 @@ const changeTableSize = (
   tableSize.value = size;
 };
 const getPopupContainer: () => any = () => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     return document.querySelector(".components-table-wrap") as HTMLElement;
   }
 };
@@ -128,7 +128,7 @@ const isInitSortable = ref(false);
 // 拖拽排序 -------------- start
 const initSortable = () => {
   if (!isInitSortable.value) return;
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     const el = document.querySelector(".components-sort-table tbody");
     Sortable.create(el, {
       handle: `.components-table-${props.tableId} .ant-table-row`,

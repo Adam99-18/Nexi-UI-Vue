@@ -1,5 +1,6 @@
 <script lang="tsx" setup>
 import { ref, watch, type PropType } from "vue";
+import { moment } from "./dayjs";
 const props = defineProps({
   showTime: {
     type: Boolean as PropType<boolean>,

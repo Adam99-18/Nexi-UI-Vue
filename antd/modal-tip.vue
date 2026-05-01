@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import { ref, unref, watch } from "vue";
 import NexiIcon from "./icon.vue";
+import { useGlobalStore } from "./runtime";
 const props = defineProps({
   layout: {
     type: String,
@@ -50,7 +51,7 @@ const handleOk = () => {
 };
 
 const getContainer = () => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     return document.querySelector(props.layout) as HTMLElement;
   }
 };

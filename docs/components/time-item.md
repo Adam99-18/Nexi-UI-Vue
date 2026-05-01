@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NexiTimeItem from '@/components/antd/time-item.vue'
+import { NexiTimeItem } from 'nexi-ui'
 
 const timeRef = ref()
 

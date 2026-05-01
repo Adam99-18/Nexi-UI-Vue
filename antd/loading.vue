@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { h } from "vue";
 /**
  * 自定义加载组件
  */

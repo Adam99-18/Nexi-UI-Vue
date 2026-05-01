@@ -9,12 +9,12 @@
 ## 安装
 
 ```bash
-npm install Nexi-ui
+npm install nexi-ui
 ```
 
 ## 前置依赖
 
-`Nexi-ui` 的 peerDependencies 需要你在项目中预先安装：
+`nexi-ui` 的 peerDependencies 需要你在项目中预先安装：
 
 ```bash
 npm install ant-design-vue@^4.0.0 @ant-design/icons-vue@^7.0.0

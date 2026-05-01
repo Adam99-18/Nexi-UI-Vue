@@ -49,3 +49,25 @@ export const getScheduleList = async () => ({
   code: 200,
   data: [],
 });
+
+/** Safe wrapper for external useDictionaryStore — falls back to empty defaults */
+export const useDictionaryStore = (): { dictionaryFilter: any[] } => {
+  try {
+    const globalStore = (globalThis as any).__nexi_useDictionaryStore;
+    if (typeof globalStore === "function") return globalStore();
+    if (typeof (globalThis as any).useDictionaryStore === "function")
+      return (globalThis as any).useDictionaryStore();
+  } catch {}
+  return { dictionaryFilter: [] };
+};
+
+/** Safe wrapper for external useGlobalStore — falls back to no-op defaults */
+export const useGlobalStore = (): { toggleGlobalModal: boolean } => {
+  try {
+    const globalStore = (globalThis as any).__nexi_useGlobalStore;
+    if (typeof globalStore === "function") return globalStore();
+    if (typeof (globalThis as any).useGlobalStore === "function")
+      return (globalThis as any).useGlobalStore();
+  } catch {}
+  return { toggleGlobalModal: false };
+};

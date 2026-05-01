@@ -4,25 +4,28 @@
  * https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=4458987
  */
 import { createFromIconfontCN } from '@ant-design/icons-vue';
-const IconFont = createFromIconfontCN({
-  scriptUrl: useRuntimeConfig().public.fontUrl,
-});
 
 const props = defineProps({
   icon: {
     type: String,
-    // icon-setting
     default: () => '',
   },
   color: {
     type: String,
-    // icon-setting
     default: () => '',
   },
   size: {
     type: [String, Number],
     default: () => 18,
   },
+  scriptUrl: {
+    type: String,
+    default: () => '',
+  },
+});
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: props.scriptUrl || '',
 });
 </script>
 <template>

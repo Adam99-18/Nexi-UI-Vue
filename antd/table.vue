@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import NexiIcon from "./icon.vue";
 import NexiNull from "./null.vue";
 import vuedraggable from "vuedraggable";
@@ -128,7 +128,7 @@ const changeTableSize = (size: TableSize.Small | TableSize.Default | TableSize.M
   tableSize.value = size;
 };
 const getPopupContainer: () => any = () => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     return document.querySelector(".components-table-wrap") as HTMLElement;
   }
 };
@@ -171,7 +171,7 @@ const isInitSortable = ref(false);
 // 拖拽排序 -------------- start
 const initSortable = () => {
   if (!isInitSortable.value) return;
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     const el = document.querySelector(`.components-table-${props.tableId} tbody`) as HTMLElement;
     Sortable.create(el, {
       handle: `.components-table-${props.tableId} .ant-table-row .draggable`,
@@ -262,7 +262,7 @@ const handleScroll = (args: { left: number; id: string }) => {
 };
 const setScollPos = (left: number) => {
   if (left < 0) left = 0;
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     const dom = document.querySelector(".ant-table-sticky-holder") as HTMLElement;
     const dom1 = document.querySelector(".ant-table-body") as HTMLElement;
     if (dom) {
@@ -282,7 +282,7 @@ const handleScrollEnd = () => {
  */
 const getTableWidth = () => {
   setTimeout(() => {
-    if (import.meta.client) {
+    if (typeof window !== "undefined") {
       const container = document.querySelector(".ant-table-sticky-holder") as HTMLElement;
       if (!container) return;
       // 获取表格的实际宽度和容器宽度
@@ -322,7 +322,7 @@ onMounted(() => {
   // 获取table的实际宽度和容器宽度
   getTableWidth();
 
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     window.addEventListener("resize", getTableWidth);
 
     // 监听dom 左右滑动 .ant-table-sticky-holder，更新滚动条位置
@@ -341,7 +341,7 @@ onMounted(() => {
   }
 });
 onBeforeUnmount(() => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     window.removeEventListener("resize", getTableWidth);
   }
 });

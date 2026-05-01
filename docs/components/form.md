@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import NexiForm from '@/components/antd/form.vue'
+import { NexiForm } from 'nexi-ui'
 
 const formRef = ref()
 const formData = reactive({

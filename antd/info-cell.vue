@@ -45,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import CustomOverflowSuspension from "./custom-overflow-suspension.vue";
 withDefaults(
   defineProps<{
     logoUrl: string;

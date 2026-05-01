@@ -49,8 +49,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import NexiSearchForm from '@/components/antd/search-form.vue'
-import NexiTable from '@/components/antd/table.vue'
+import { NexiSearchForm, NexiTable } from 'nexi-ui'
 
 const searchData = reactive({
   keyword: '',

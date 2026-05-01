@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, type PropType } from "vue";
 import NexiIcon from "./icon.vue";
+import TextHightlight from "./text-highlight.vue";
 import { debounce } from "lodash-es";
 
 const emits = defineEmits(["select", "change", "add", "refresh", "input", "remove"]);
@@ -241,7 +242,7 @@ const setData = (ids: Array<string | number>) => {
 const getPopupContainer: any = () => {
   console.log(198, props.isOwner);
   if (!props.isOwner) return;
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     return document.querySelector(props.container) || document.body;
   }
 };

@@ -31,6 +31,7 @@
 <script lang="ts" setup>
 import { ref, unref, watch, type PropType } from "vue";
 import NexiIcon from "./icon.vue";
+import { useDictionaryStore } from "./runtime";
 const props = defineProps({
   value: {
     type: Array,

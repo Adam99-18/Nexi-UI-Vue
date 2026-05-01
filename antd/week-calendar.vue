@@ -194,6 +194,9 @@ import { CaretDownOutlined } from "@ant-design/icons-vue";
 import { moment } from "./dayjs";
 import { getScheduleList } from "./runtime";
 import NexiNull from "./null.vue";
+import CustomExtra from "./custom-extra.vue";
+import LayoutDrawer from "./layout-drawer.vue";
+import ModalScheduleDetail from "./modal-schedule-detail.vue";
 const weeeks = ref(["日", "一", "二", "三", "四", "五", "六"]);
 const currentDate = ref(
   `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}`,

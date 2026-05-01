@@ -6,13 +6,13 @@
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import Nexi from 'ant-design-vue'
-import NexiUI from 'Nexi-ui'
+import Antd from 'ant-design-vue'
+import NexiUI from 'nexi-ui'
 import 'ant-design-vue/dist/reset.css'
 
 const app = createApp(App)
-app.use(Nexi)
-app.use(NexiUI) // 组件前缀 <antd-xxx>
+app.use(Antd)
+app.use(NexiUI) // 组件前缀 <Nexi-xxx>
 app.mount('#app')
 ```
 
@@ -24,7 +24,7 @@ app.mount('#app')
 </template>
 
 <script lang="ts" setup>
-import { Button as NexiButton } from 'Nexi-ui'
+import { NexiButton } from 'nexi-ui'
 
 const handleClick = () => {
   console.log('Button clicked')
@@ -47,7 +47,7 @@ Form 组件通过 `columns` 配置即可生成完整表单：
 </template>
 
 <script lang="ts" setup>
-import { Form as NexiForm } from 'Nexi-ui'
+import { NexiForm } from 'nexi-ui'
 import { ref, reactive } from 'vue'
 
 const formRef = ref()
@@ -89,7 +89,7 @@ const handleSearch = (values: any) => {
 </template>
 
 <script lang="ts" setup>
-import { Table as NexiTable } from 'Nexi-ui'
+import { NexiTable } from 'nexi-ui'
 import { ref, reactive } from 'vue'
 
 const columns = [
@@ -118,7 +118,7 @@ const pagination = reactive({ current: 1, pageSize: 10, total: 2 })
 </template>
 
 <script lang="ts" setup>
-import { Button as NexiButton, Modal as NexiModal } from 'Nexi-ui'
+import { NexiButton, NexiModal } from 'nexi-ui'
 import { ref } from 'vue'
 
 const modalRef = ref()

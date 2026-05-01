@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref, unref, watch } from "vue";
-import type { FormParams } from "./runtime";
+import { useGlobalStore, type FormParams } from "./runtime";
 import {
   Input,
   InputNumber,
@@ -151,7 +151,7 @@ const validateFields = (record?: any) => {
 };
 
 const getContainer = () => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     return document.querySelector(
       props.container || ".layout-wrap",
     ) as HTMLElement;

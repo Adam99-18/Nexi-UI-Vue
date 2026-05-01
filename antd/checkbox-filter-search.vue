@@ -2,7 +2,9 @@
 import { computed, ref, watch, type PropType } from "vue";
 import NexiIcon from "./icon.vue";
 import NexiNull from "./null.vue";
+import TextHightlight from "./text-highlight.vue";
 import { debounce } from "lodash-es";
+import { useDictionaryStore } from "./runtime";
 
 const emits = defineEmits([
   // 发送{label, value}对象数组

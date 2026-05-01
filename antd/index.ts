@@ -4,6 +4,8 @@ import Action from "./action.vue";
 import Button from "./button.vue";
 import CheckboxFilter from "./checkbox-filter.vue";
 import CheckboxFilterSearch from "./checkbox-filter-search.vue";
+import CustomExtra from "./custom-extra.vue";
+import CustomOverflowSuspension from "./custom-overflow-suspension.vue";
 import DropDown from "./drop-down.vue";
 import DropDownFilter from "./drop-down-filter.vue";
 import DropDownSearch from "./drop-down-search.vue";
@@ -15,9 +17,11 @@ import IconFont from "./icon-font.vue";
 import Img from "./img.vue";
 import InfoCell from "./info-cell.vue";
 import Input from "./input.vue";
+import LayoutDrawer from "./layout-drawer.vue";
 import Loading from "./loading.vue";
 import Modal from "./modal.vue";
 import ModalForm from "./modal-form.vue";
+import ModalScheduleDetail from "./modal-schedule-detail.vue";
 import ModalTip from "./modal-tip.vue";
 import Null from "./null.vue";
 import SearchForm from "./search-form.vue";
@@ -27,6 +31,7 @@ import TableBackup from "./table-backup.vue";
 import TableScrollBar from "./table-scroll-bar.vue";
 import Tabs from "./tabs.vue";
 import TextArea from "./text-area.vue";
+import TextHighlight from "./text-highlight.vue";
 import TimeItem from "./time-item.vue";
 import View from "./view.vue";
 import WeekCalendar from "./week-calendar.vue";
@@ -36,6 +41,8 @@ export {
   Button,
   CheckboxFilter,
   CheckboxFilterSearch,
+  CustomExtra,
+  CustomOverflowSuspension,
   DropDown,
   DropDownFilter,
   DropDownSearch,
@@ -47,9 +54,11 @@ export {
   Img,
   InfoCell,
   Input,
+  LayoutDrawer,
   Loading,
   Modal,
   ModalForm,
+  ModalScheduleDetail,
   ModalTip,
   Null,
   SearchForm,
@@ -59,6 +68,7 @@ export {
   TableScrollBar,
   Tabs,
   TextArea,
+  TextHighlight,
   TimeItem,
   View,
   WeekCalendar,
@@ -71,6 +81,8 @@ const components: Record<string, Component> = {
   NexiButton: Button,
   NexiCheckboxFilter: CheckboxFilter,
   NexiCheckboxFilterSearch: CheckboxFilterSearch,
+  NexiCustomExtra: CustomExtra,
+  NexiCustomOverflowSuspension: CustomOverflowSuspension,
   NexiDropDown: DropDown,
   NexiDropDownFilter: DropDownFilter,
   NexiDropDownSearch: DropDownSearch,
@@ -82,9 +94,11 @@ const components: Record<string, Component> = {
   NexiImg: Img,
   NexiInfoCell: InfoCell,
   NexiInput: Input,
+  NexiLayoutDrawer: LayoutDrawer,
   NexiLoading: Loading,
   NexiModal: Modal,
   NexiModalForm: ModalForm,
+  NexiModalScheduleDetail: ModalScheduleDetail,
   NexiModalTip: ModalTip,
   NexiNull: Null,
   NexiSearchForm: SearchForm,
@@ -94,6 +108,7 @@ const components: Record<string, Component> = {
   NexiTableScrollBar: TableScrollBar,
   NexiTabs: Tabs,
   NexiTextArea: TextArea,
+  NexiTextHighlight: TextHighlight,
   NexiTimeItem: TimeItem,
   NexiView: View,
   NexiWeekCalendar: WeekCalendar,

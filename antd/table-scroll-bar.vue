@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 // import { throttle } from "lodash-es";
 const emits = defineEmits(["scroll", "scroll-end"]);
 const props = defineProps({
@@ -80,7 +80,7 @@ const handleClick = (e: MouseEvent) => {
 };
 
 onMounted(() => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     // 添加全局事件监听器
     window.addEventListener("mousemove", handleDrag);
     window.addEventListener("mouseup", handleDragEnd);
@@ -90,7 +90,7 @@ onMounted(() => {
 
 // 组件卸载时移除事件监听器
 onUnmounted(() => {
-  if (import.meta.client) {
+  if (typeof window !== "undefined") {
     window.removeEventListener("mousemove", handleDrag);
     window.removeEventListener("mouseup", handleDragEnd);
   }

@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import NexiWeekCalendar from '@/components/antd/week-calendar.vue'
+import { NexiWeekCalendar } from 'nexi-ui'
 
 const handleDateChange = (date: string) => {
   console.log('当前查看日期:', date) // 格式: YYYY/M/D

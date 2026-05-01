@@ -44,8 +44,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NexiButton from '@/components/antd/button.vue'
-import NexiModalTip from '@/components/antd/modal-tip.vue'
+import { NexiButton, NexiModalTip } from 'nexi-ui'
 
 const modalTipRef = ref()
 

@@ -3,3 +3,6 @@ dist/
 .DS_Store
 *.log
 docs/.vitepress/cache/
+.claude/
+docs/.vitepress/.temp/
+docs/.vitepress/dist/
