@@ -1,6 +1,6 @@
 {
   "name": "nexi-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nexi-UI Vue 4.x — 企业级后台管理系统组件库，基于 Ant Design Vue 深度封装",
   "type": "module",
   "author": "Adam",
