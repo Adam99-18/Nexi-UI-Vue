@@ -1,0 +1,263 @@
+/* ===== Admin Nexi Vue 主题定制 ===== */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #1677ff 30%, #69b1ff);
+  --vp-c-brand-1: #1677ff;
+  --vp-c-brand-2: #4096ff;
+  --vp-c-brand-3: #69b1ff;
+  --vp-c-brand-soft: rgba(22, 119, 255, 0.08);
+}
+
+/* ===== Logo 尺寸 ===== */
+.VPNavBarTitle .VPImage {
+  height: 28px;
+}
+
+/* ===== 首页 Hero 图片 ===== */
+
+/* 放大图片：覆盖 VitePress 默认 max-width/max-height */
+.VPHero .image-bg {
+  width: 340px !important;
+  height: 340px !important;
+}
+
+.VPHero .image-src {
+  max-width: 340px !important;
+  max-height: 340px !important;
+  border-radius: 20px;
+  box-shadow:
+    0 8px 32px rgba(22, 119, 255, 0.15),
+    0 2px 8px rgba(22, 119, 255, 0.1);
+  animation: hero-glow 3s ease-in-out infinite;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease;
+}
+
+/* 浮动动画加在容器上 */
+.VPHero .image-container {
+  animation: hero-float 4s ease-in-out infinite;
+}
+
+.VPHero .image-container:hover {
+  animation-play-state: paused;
+}
+
+/* 悬停：放大 + 旋转 */
+.VPHero .image-src:hover {
+  transform: translate(-50%, -50%) scale(1.08) rotate(3deg) !important;
+  box-shadow:
+    0 16px 48px rgba(22, 119, 255, 0.25),
+    0 4px 16px rgba(22, 119, 255, 0.15);
+}
+
+/* Hero logo 浮动动画 */
+@keyframes hero-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Hero logo 光晕呼吸 */
+@keyframes hero-glow {
+  0%, 100% {
+    box-shadow:
+      0 8px 32px rgba(22, 119, 255, 0.15),
+      0 2px 8px rgba(22, 119, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 12px 44px rgba(22, 119, 255, 0.3),
+      0 4px 16px rgba(22, 119, 255, 0.2);
+  }
+}
+
+@media (min-width: 640px) {
+  .VPHero .image-bg {
+    width: 400px !important;
+    height: 400px !important;
+  }
+  .VPHero .image-src {
+    max-width: 380px !important;
+    max-height: 380px !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .image-bg {
+    width: 420px !important;
+    height: 420px !important;
+  }
+  .VPHero .image-src {
+    max-width: 400px !important;
+    max-height: 400px !important;
+  }
+}
+
+/* ===== API 表格 — Ant Design 风格 ===== */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.vp-doc table thead {
+  background: #fafafa;
+}
+
+.vp-doc table th {
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #262626;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.vp-doc table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: top;
+  color: #434343;
+  font-size: 14px;
+}
+
+/* 斑马纹 */
+.vp-doc table tbody tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+.vp-doc table tbody tr:hover td {
+  background: #e6f4ff;
+}
+
+/* 属性名列 — 等宽 + 品牌色 */
+.vp-doc table td:first-child {
+  font-family: 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 13px;
+  color: #1677ff;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 类型列 — 代码标记 */
+.vp-doc table td:nth-child(3) {
+  font-family: 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 13px;
+  color: #c41d7f;
+}
+
+/* 默认值列 — 次要色 */
+.vp-doc table td:nth-child(4) {
+  color: #8c8c8c;
+}
+
+/* 必填列 */
+.vp-doc table td:nth-child(5) {
+  color: #8c8c8c;
+}
+
+/* ===== 内容区标题优化 ===== */
+.vp-doc h2 {
+  margin-top: 40px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h3 {
+  margin-top: 32px;
+}
+
+/* ===== 侧边栏 ===== */
+.VPSidebar {
+  width: 272px;
+}
+
+.VPSidebarItem .text {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.VPSidebarItem .item {
+  padding-right: 12px;
+}
+
+.VPSidebarItem.is-active > .item .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+.VPSidebarGroup .items {
+  transition: none !important;
+}
+
+/* ===== 代码块 ===== */
+.vp-doc div[class*='language-'] {
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+/* ===== 暗色主题适配 ===== */
+.dark {
+  --vp-home-hero-name-background: linear-gradient(120deg, #69b1ff 30%, #bae0ff);
+}
+
+/* 暗色主题 — API 表格 */
+.dark .vp-doc table {
+  border-color: #303030;
+}
+
+.dark .vp-doc table thead {
+  background: #1d1d1d;
+}
+
+.dark .vp-doc table th {
+  color: #e8e8e8;
+  border-bottom-color: #303030;
+}
+
+.dark .vp-doc table td {
+  color: #d9d9d9;
+  border-bottom-color: #303030;
+}
+
+.dark .vp-doc table tbody tr:nth-child(even) td {
+  background: #1d1d1d;
+}
+
+.dark .vp-doc table tbody tr:hover td {
+  background: #111d2c;
+}
+
+.dark .vp-doc table td:first-child {
+  color: #69b1ff;
+}
+
+.dark .vp-doc table td:nth-child(2) {
+  color: #d9d9d9;
+}
+
+.dark .vp-doc table td:nth-child(3) {
+  color: #ff85c0;
+}
+
+.dark .vp-doc table td:nth-child(4) {
+  color: #8c8c8c;
+}
+
+.dark .vp-doc table td:nth-child(5) {
+  color: #8c8c8c;
+}
+
