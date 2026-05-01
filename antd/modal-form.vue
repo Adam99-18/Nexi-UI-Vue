@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { FormParams } from "@/composables/useForm";
+import { reactive, ref, unref, watch } from "vue";
+import type { FormParams } from "./runtime";
 import {
   Input,
   InputNumber,
@@ -11,9 +12,9 @@ import {
   DatePicker,
   InputPassword,
 } from "ant-design-vue";
-import NexiDropDownSearch from "@/components/antd/drop-down-search.vue";
-import NexiTextArea from "@/components/antd/text-area.vue";
-import NexiView from "@/components/antd/view.vue";
+import NexiDropDownSearch from "./drop-down-search.vue";
+import NexiTextArea from "./text-area.vue";
+import NexiView from "./view.vue";
 
 const Nexi: any = {
   NexiInput: Input,

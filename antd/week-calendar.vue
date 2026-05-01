@@ -189,8 +189,11 @@
 </template>
 
 <script lang="ts" setup>
-import { moment } from "@/utils/dayjs";
-import Api from "~/api";
+import { computed, ref, watch, watchEffect } from "vue";
+import { CaretDownOutlined } from "@ant-design/icons-vue";
+import { moment } from "./dayjs";
+import { getScheduleList } from "./runtime";
+import NexiNull from "./null.vue";
 const weeeks = ref(["日", "一", "二", "三", "四", "五", "六"]);
 const currentDate = ref(
   `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}`,
@@ -313,8 +316,7 @@ function toDay(date: any) {
 // 获取本周日程列表
 
 async function getSchedules(startTime: string, endTime: string) {
-  if (!useCustomCookie().getToken()) return;
-  const res = await Api.Portal.getScheduleList({
+  const res = await getScheduleList({
     body: {
       startTime: new Date(startTime).getTime(),
       endTime: new Date(endTime).getTime(),
@@ -342,11 +344,8 @@ function formatNoteTime(startTime: string) {
 
 // 跳转到日程管理页面
 const handleSchedule = () => {
-  if (import.meta.client) {
-    const res = useRouter().resolve({
-      name: "PortalScheduleIndex",
-    });
-    window.open(res.href);
+  if (typeof window !== "undefined") {
+    window.open("#");
   }
 };
 

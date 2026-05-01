@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+import { ref, watch, type PropType } from "vue";
 const props = defineProps({
   showTime: {
     type: Boolean as PropType<boolean>,

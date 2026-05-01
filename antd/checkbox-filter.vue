@@ -29,6 +29,8 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { ref, unref, watch, type PropType } from "vue";
+import NexiIcon from "./icon.vue";
 const props = defineProps({
   value: {
     type: Array,

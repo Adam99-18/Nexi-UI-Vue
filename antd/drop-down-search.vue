@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+import type { PropType } from "vue";
   const props = defineProps({
     placeholder: {
       type: String as PropType<string>,

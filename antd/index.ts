@@ -1,31 +1,108 @@
-// Admin Nexi Vue — 组件库入口
-export { default as Action } from './action.vue'
-export { default as Button } from './button.vue'
-export { default as CheckboxFilter } from './checkbox-filter.vue'
-export { default as CheckboxFilterSearch } from './checkbox-filter-search.vue'
-export { default as DropDown } from './drop-down.vue'
-export { default as DropDownFilter } from './drop-down-filter.vue'
-export { default as DropDownSearch } from './drop-down-search.vue'
-export { default as Form } from './form.vue'
-export { default as Html } from './html.vue'
-export { default as Icon } from './icon.vue'
-export { default as IconArrowDown } from './icon-arrow-down.vue'
-export { default as IconFont } from './icon-font.vue'
-export { default as Img } from './img.vue'
-export { default as InfoCell } from './info-cell.vue'
-export { default as Input } from './input.vue'
-export { default as Loading } from './loading.vue'
-export { default as Modal } from './modal.vue'
-export { default as ModalForm } from './modal-form.vue'
-export { default as ModalTip } from './modal-tip.vue'
-export { default as Null } from './null.vue'
-export { default as SearchForm } from './search-form.vue'
-export { default as Switch } from './switch.vue'
-export { default as Table } from './table.vue'
-export { default as TableBackup } from './table-backup.vue'
-export { default as TableScrollBar } from './table-scroll-bar.vue'
-export { default as Tabs } from './tabs.vue'
-export { default as TextArea } from './text-area.vue'
-export { default as TimeItem } from './time-item.vue'
-export { default as View } from './view.vue'
-export { default as WeekCalendar } from './week-calendar.vue'
+import type { App, Component } from "vue";
+
+import Action from "./action.vue";
+import Button from "./button.vue";
+import CheckboxFilter from "./checkbox-filter.vue";
+import CheckboxFilterSearch from "./checkbox-filter-search.vue";
+import DropDown from "./drop-down.vue";
+import DropDownFilter from "./drop-down-filter.vue";
+import DropDownSearch from "./drop-down-search.vue";
+import Form from "./form.vue";
+import Html from "./html.vue";
+import Icon from "./icon.vue";
+import IconArrowDown from "./icon-arrow-down.vue";
+import IconFont from "./icon-font.vue";
+import Img from "./img.vue";
+import InfoCell from "./info-cell.vue";
+import Input from "./input.vue";
+import Loading from "./loading.vue";
+import Modal from "./modal.vue";
+import ModalForm from "./modal-form.vue";
+import ModalTip from "./modal-tip.vue";
+import Null from "./null.vue";
+import SearchForm from "./search-form.vue";
+import Switch from "./switch.vue";
+import Table from "./table.vue";
+import TableBackup from "./table-backup.vue";
+import TableScrollBar from "./table-scroll-bar.vue";
+import Tabs from "./tabs.vue";
+import TextArea from "./text-area.vue";
+import TimeItem from "./time-item.vue";
+import View from "./view.vue";
+import WeekCalendar from "./week-calendar.vue";
+
+export {
+  Action,
+  Button,
+  CheckboxFilter,
+  CheckboxFilterSearch,
+  DropDown,
+  DropDownFilter,
+  DropDownSearch,
+  Form,
+  Html,
+  Icon,
+  IconArrowDown,
+  IconFont,
+  Img,
+  InfoCell,
+  Input,
+  Loading,
+  Modal,
+  ModalForm,
+  ModalTip,
+  Null,
+  SearchForm,
+  Switch,
+  Table,
+  TableBackup,
+  TableScrollBar,
+  Tabs,
+  TextArea,
+  TimeItem,
+  View,
+  WeekCalendar,
+};
+
+export { setPermissionResolver } from "./runtime";
+
+const components: Record<string, Component> = {
+  NexiAction: Action,
+  NexiButton: Button,
+  NexiCheckboxFilter: CheckboxFilter,
+  NexiCheckboxFilterSearch: CheckboxFilterSearch,
+  NexiDropDown: DropDown,
+  NexiDropDownFilter: DropDownFilter,
+  NexiDropDownSearch: DropDownSearch,
+  NexiForm: Form,
+  NexiHtml: Html,
+  NexiIcon: Icon,
+  NexiIconArrowDown: IconArrowDown,
+  NexiIconFont: IconFont,
+  NexiImg: Img,
+  NexiInfoCell: InfoCell,
+  NexiInput: Input,
+  NexiLoading: Loading,
+  NexiModal: Modal,
+  NexiModalForm: ModalForm,
+  NexiModalTip: ModalTip,
+  NexiNull: Null,
+  NexiSearchForm: SearchForm,
+  NexiSwitch: Switch,
+  NexiTable: Table,
+  NexiTableBackup: TableBackup,
+  NexiTableScrollBar: TableScrollBar,
+  NexiTabs: Tabs,
+  NexiTextArea: TextArea,
+  NexiTimeItem: TimeItem,
+  NexiView: View,
+  NexiWeekCalendar: WeekCalendar,
+};
+
+export default {
+  install(app: App) {
+    Object.entries(components).forEach(([name, component]) => {
+      app.component(name, component);
+    });
+  },
+};

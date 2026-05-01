@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+import { computed, type PropType } from "vue";
 const props = defineProps({
   /* 当前激活的 tab，字符串 */
   value: {

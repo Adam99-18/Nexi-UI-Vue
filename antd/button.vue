@@ -1,4 +1,7 @@
 <script lang="tsx" setup>
+import { computed, type PropType } from "vue";
+import { usePermission } from "./runtime";
+import NexiIcon from "./icon.vue";
 import type { ButtonType } from "ant-design-vue/es/button";
 
 // const emits = defineEmits(["click"]);

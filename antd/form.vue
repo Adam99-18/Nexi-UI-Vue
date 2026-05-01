@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { QueryForm } from "@/composables/useQueryForm";
+import { reactive, ref, watch, type Ref } from "vue";
+import { useQueryForm, useTool, type QueryForm } from "./runtime";
 import {
   Input,
   Select,
@@ -11,9 +12,9 @@ import {
   InputNumber,
   DatePicker,
 } from "ant-design-vue";
-import NexiDropDownSearch from "@/components/antd/drop-down-search.vue";
-import NexiTextArea from "@/components/antd/text-area.vue";
-import NexiView from "@/components/antd/view.vue";
+import NexiDropDownSearch from "./drop-down-search.vue";
+import NexiTextArea from "./text-area.vue";
+import NexiView from "./view.vue";
 import { cloneDeep } from "lodash-es";
 
 const { resetObj } = useTool();

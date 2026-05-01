@@ -1,9 +1,9 @@
 <script lang="tsx" setup>
 import { computed, ref, h, type FunctionalComponent } from 'vue';
 import { Popconfirm, Tooltip, type TooltipProps } from 'ant-design-vue';
-import type { ActionItem } from '@/types/antd/action';
+import type { ActionItem } from './runtime';
 import { debounce, isFunction, isString } from 'lodash-es';
-import { isAsyncFunction } from '@/utils/is';
+import { isAsyncFunction, usePermission } from './runtime';
 import Icons from './icon.vue';
 
 const props = withDefaults(

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { PropType } from "vue";
+import { usePermission } from "./runtime";
   const emits = defineEmits(['click']);
   const props = defineProps({
     options: {

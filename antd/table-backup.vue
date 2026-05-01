@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { computed, nextTick, ref, watch } from "vue";
+import NexiIcon from "./icon.vue";
 import draggable from "vuedraggable";
 import Sortable from "sortablejs";
 

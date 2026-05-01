@@ -1,11 +1,11 @@
 # Nexi-UI Vue 4.x
 
-企业级中后台 Vue 3 组件库，基于 [Ant Design Vue 4.x](https://antdv.com) 深度封装，覆盖 30+ 高频业务场景。
+企业级中后台 Vue 3 组件库，基于 [Ant Design Vue 4.x](https://github.com/Adam99-18/Nexi-UI-Vue) 深度封装，覆盖 30+ 高频业务场景。
 
 ## 安装
 
 ```bash
-npm install Nexi-ui ant-design-vue @ant-design/icons-vue
+npm install nexi-ui ant-design-vue @ant-design/icons-vue
 ```
 
 ## 快速使用
@@ -14,8 +14,9 @@ npm install Nexi-ui ant-design-vue @ant-design/icons-vue
 // main.ts
 import { createApp } from 'vue'
 import Antd from 'ant-design-vue'
-import NexiUI from 'Nexi-ui'
+import NexiUI from 'nexi-ui'
 import 'ant-design-vue/dist/reset.css'
+import 'nexi-ui/style.css'
 
 const app = createApp(App)
 app.use(Antd).use(NexiUI).mount('#app')
@@ -28,21 +29,21 @@ app.use(Antd).use(NexiUI).mount('#app')
 </template>
 
 <script setup>
-import { Button as NexiButton, Table as NexiTable } from 'Nexi-ui'
+import { Button as NexiButton, Table as NexiTable } from 'nexi-ui'
 </script>
 ```
 
 ## 文档
 
-完整文档请访问：[在线文档](https://Nexi-ui.pages.dev)
+完整文档请访问：[在线文档](https://github.com/Adam99-18/Nexi-UI-Vue)
 
-本地运行文档：
+<!-- 本地运行文档：
 
 ```bash
 git clone <repo-url> && cd Nexi-ui
 npm install
 npm run docs:dev
-```
+``` -->
 
 ## 依赖要求
 

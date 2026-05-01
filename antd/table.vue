@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { computed, nextTick, ref, watch } from "vue";
+import NexiIcon from "./icon.vue";
+import NexiNull from "./null.vue";
 import vuedraggable from "vuedraggable";
 import Sortable from "sortablejs";
 import { cloneDeep } from "lodash-es";

@@ -1,5 +1,7 @@
 <!-- 提示弹窗 -->
 <script lang="ts" setup>
+import { ref, unref, watch } from "vue";
+import NexiIcon from "./icon.vue";
 const props = defineProps({
   layout: {
     type: String,

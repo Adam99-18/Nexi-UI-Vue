@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref, watch, type PropType } from "vue";
+import NexiIcon from "./icon.vue";
 import { debounce } from "lodash-es";
 
 const emits = defineEmits(["select", "change", "add", "refresh", "input", "remove"]);

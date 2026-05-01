@@ -1,26 +1,35 @@
 {
-  "name": "Nexi-ui",
+  "name": "nexi-ui",
   "version": "1.0.0",
   "description": "Nexi-UI Vue 4.x — 企业级后台管理系统组件库，基于 Ant Design Vue 深度封装",
   "type": "module",
-  "main": "antd/index.ts",
-  "module": "antd/index.ts",
-  "types": "antd/index.ts",
+  "author": "Adam",
+  "main": "./dist/nexi-ui.cjs",
+  "module": "./dist/nexi-ui.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./antd/index.ts",
-    "./*": "./antd/*"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/nexi-ui.js",
+      "require": "./dist/nexi-ui.cjs"
+    },
+    "./style.css": "./dist/style.css"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.vue"
+  ],
   "files": [
-    "antd",
-    "docs/.vitepress/dist",
+    "dist",
     "README.md"
   ],
   "scripts": {
+    "build": "vite build && node scripts/build-types.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "prepublishOnly": "npm run docs:build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "vue",
@@ -61,6 +70,8 @@
     "sass": "^1.83.4",
     "typescript": "^5.7.3",
     "vitepress": "^1.6.3",
-    "vue": "^3.3.0"
+    "vue": "^3.3.0",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "vite": "^5.4.21"
   }
 }
