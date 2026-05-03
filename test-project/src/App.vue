@@ -159,6 +159,105 @@
         </template>
       </nexi-table>
     </section>
+
+    <section class="test-section">
+      <h2>21. NexiCheckboxFilter</h2>
+      <nexi-checkbox-filter :options="checkboxFilterOptions" @select="handleCheckboxFilterSelect" @update:value="handleCheckboxFilterUpdate" />
+      <p>Selected: {{ checkboxFilterValue.length ? checkboxFilterValue.join(', ') : '全部' }}</p>
+    </section>
+
+    <section class="test-section">
+      <h2>22. NexiCheckboxFilterSearch</h2>
+      <nexi-checkbox-filter-search
+        :options="checkboxFilterSearchOptions"
+        :ids="checkboxFilterSearchIds"
+        :value="checkboxFilterSearchValue"
+        @select="handleCheckboxFilterSearchSelect"
+        @change="handleCheckboxFilterSearchChange"
+        @input="handleCheckboxFilterSearchInput"
+      />
+      <p>Search input events logged to console</p>
+    </section>
+
+    <section class="test-section">
+      <h2>23. NexiCustomExtra</h2>
+      <nexi-custom-extra title="查看更多" @click="handleCustomExtraClick" />
+    </section>
+
+    <section class="test-section">
+      <h2>24. NexiDropDownFilter</h2>
+      <nexi-drop-down-filter
+        :items="dropDownFilterItems"
+        :options="dropDownFilterOptions"
+        :is-owner="true"
+        :edit-status="true"
+        placeholder="请选择知识库"
+        placeholder-input="搜索知识库名称"
+        @select="handleDropDownFilterSelect"
+        @input="handleDropDownFilterInput"
+        @add="handleDropDownFilterAdd"
+        @refresh="handleDropDownFilterRefresh"
+        @remove="handleDropDownFilterRemove"
+      />
+    </section>
+
+    <section class="test-section">
+      <h2>25. NexiDropDownSearch</h2>
+      <nexi-drop-down-search
+        :options="dropDownSearchOptions"
+        :field="'type'"
+        :field2="'keyword'"
+        :form="dropDownSearchForm"
+      />
+      <p>Type: {{ dropDownSearchForm.type }}, Keyword: {{ dropDownSearchForm.keyword }}</p>
+    </section>
+
+    <section class="test-section">
+      <h2>26. NexiInfoCell</h2>
+      <nexi-info-cell
+        logo-url="https://via.placeholder.com/60"
+        name="示例项目"
+        description="这是一段项目描述信息"
+        @click-logo="handleInfoCellClick"
+      />
+    </section>
+
+    <section class="test-section">
+      <h2>27. NexiTimeItem</h2>
+      <nexi-time-item :form="timeItemForm" :field="'time'" :show-time="true" @update:value="handleTimeItemUpdate" />
+      <p>Value: {{ timeItemForm.time ? timeItemForm.time : '未选择' }}</p>
+    </section>
+
+    <section class="test-section">
+      <h2>28. NexiLayoutDrawer</h2>
+      <nexi-button type="primary" @click="drawerShow = !drawerShow">Toggle Drawer</nexi-button>
+      <nexi-layout-drawer :show="drawerShow" :width="400" @cancel="drawerShow = false">
+        <div style="padding: 20px">
+          <h3>Drawer Content</h3>
+          <p>This is the drawer body content passed via slot.</p>
+        </div>
+      </nexi-layout-drawer>
+      <p>Drawer: {{ drawerShow ? 'Open' : 'Closed' }}</p>
+    </section>
+
+    <section class="test-section">
+      <h2>29. NexiTableBackup</h2>
+      <nexi-table-backup
+        :table-id="'backup-test'"
+        :columns="tableBackupColumns"
+        :data-source="tableBackupData"
+        :pagination="false"
+        :show-tool-bars="false"
+        :bordered="true"
+        size="small"
+      />
+    </section>
+
+    <section class="test-section">
+      <h2>30. NexiWeekCalendar</h2>
+      <nexi-week-calendar v-model:value="weekCalendarValue" />
+      <p>Selected: {{ weekCalendarValue }}</p>
+    </section>
   </div>
 </template>
 
@@ -230,6 +329,78 @@ const handleSearch = (values) => console.log('Search:', values)
 const handleReset = (values) => console.log('Reset:', values)
 const handleFormSearch = (values) => console.log('Form submit:', values)
 const handleModalFormOk = (values) => console.log('ModalForm OK:', values)
+
+// 21. NexiCheckboxFilter
+const checkboxFilterValue = ref([])
+const checkboxFilterOptions = [
+  { label: '选项一', value: '1', checked: false },
+  { label: '选项二', value: '2', checked: false },
+  { label: '选项三', value: '3', checked: false },
+]
+const handleCheckboxFilterSelect = (item) => console.log('CheckboxFilter select:', item)
+const handleCheckboxFilterUpdate = (val) => {
+  checkboxFilterValue.value = val
+  console.log('CheckboxFilter update:value:', val)
+}
+
+// 22. NexiCheckboxFilterSearch
+const checkboxFilterSearchOptions = [
+  { label: '文件A', value: 'a' },
+  { label: '文件B', value: 'b' },
+  { label: '文件C', value: 'c' },
+]
+const checkboxFilterSearchIds = []
+const checkboxFilterSearchValue = ref([])
+const handleCheckboxFilterSearchSelect = (val) => console.log('CheckboxFilterSearch select:', val)
+const handleCheckboxFilterSearchChange = (val) => console.log('CheckboxFilterSearch change:', val)
+const handleCheckboxFilterSearchInput = (val) => console.log('CheckboxFilterSearch input:', val)
+
+// 23. NexiCustomExtra
+const handleCustomExtraClick = () => console.log('CustomExtra clicked')
+
+// 24. NexiDropDownFilter
+const dropDownFilterItems = [
+  { id: '1', name: '知识库A', value: '1', label: '知识库A' },
+  { id: '2', name: '知识库B', value: '2', label: '知识库B' },
+  { id: '3', name: '知识库C', value: '3', label: '知识库C' },
+]
+const dropDownFilterOptions = dropDownFilterItems
+const handleDropDownFilterSelect = (val) => console.log('DropDownFilter select:', val)
+const handleDropDownFilterInput = (val) => console.log('DropDownFilter input:', val)
+const handleDropDownFilterAdd = () => console.log('DropDownFilter add')
+const handleDropDownFilterRefresh = () => console.log('DropDownFilter refresh')
+const handleDropDownFilterRemove = (val) => console.log('DropDownFilter remove:', val)
+
+// 25. NexiDropDownSearch
+const dropDownSearchOptions = [
+  { label: '类型A', value: 'a' },
+  { label: '类型B', value: 'b' },
+  { label: '类型C', value: 'c' },
+]
+const dropDownSearchForm = reactive({ type: undefined, keyword: '' })
+
+// 26. NexiInfoCell
+const handleInfoCellClick = () => console.log('InfoCell logo clicked')
+
+// 27. NexiTimeItem
+const timeItemForm = reactive({ time: null })
+const handleTimeItemUpdate = (val) => console.log('TimeItem update:value:', val)
+
+// 28. NexiLayoutDrawer
+const drawerShow = ref(false)
+
+// 29. NexiTableBackup
+const tableBackupColumns = [
+  { title: 'Name', dataIndex: 'name', key: 'name' },
+  { title: 'Age', dataIndex: 'age', key: 'age' },
+]
+const tableBackupData = reactive([
+  { id: 1, name: 'Alice', age: 28 },
+  { id: 2, name: 'Bob', age: 32 },
+])
+
+// 30. NexiWeekCalendar
+const weekCalendarValue = ref('')
 </script>
 
 <style>
