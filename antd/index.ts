@@ -4,7 +4,6 @@ import Action from "./action.vue";
 import Button from "./button.vue";
 import CheckboxFilter from "./checkbox-filter.vue";
 import CheckboxFilterSearch from "./checkbox-filter-search.vue";
-import CustomExtra from "./custom-extra.vue";
 import CustomOverflowSuspension from "./custom-overflow-suspension.vue";
 import DropDown from "./drop-down.vue";
 import DropDownFilter from "./drop-down-filter.vue";
@@ -27,7 +26,6 @@ import Null from "./null.vue";
 import SearchForm from "./search-form.vue";
 import Switch from "./switch.vue";
 import Table from "./table.vue";
-import TableBackup from "./table-backup.vue";
 import TableScrollBar from "./table-scroll-bar.vue";
 import Tabs from "./tabs.vue";
 import TextArea from "./text-area.vue";
@@ -41,7 +39,6 @@ export {
   Button,
   CheckboxFilter,
   CheckboxFilterSearch,
-  CustomExtra,
   CustomOverflowSuspension,
   DropDown,
   DropDownFilter,
@@ -64,7 +61,6 @@ export {
   SearchForm,
   Switch,
   Table,
-  TableBackup,
   TableScrollBar,
   Tabs,
   TextArea,
@@ -81,7 +77,6 @@ const components: Record<string, Component> = {
   NexiButton: Button,
   NexiCheckboxFilter: CheckboxFilter,
   NexiCheckboxFilterSearch: CheckboxFilterSearch,
-  NexiCustomExtra: CustomExtra,
   NexiCustomOverflowSuspension: CustomOverflowSuspension,
   NexiDropDown: DropDown,
   NexiDropDownFilter: DropDownFilter,
@@ -104,7 +99,6 @@ const components: Record<string, Component> = {
   NexiSearchForm: SearchForm,
   NexiSwitch: Switch,
   NexiTable: Table,
-  NexiTableBackup: TableBackup,
   NexiTableScrollBar: TableScrollBar,
   NexiTabs: Tabs,
   NexiTextArea: TextArea,

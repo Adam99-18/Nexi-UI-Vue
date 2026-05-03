@@ -2,179 +2,110 @@
 <!-- eslint-disable vue/html-closing-bracket-newline -->
 <template>
   <div class="week-schedule">
-    <!-- 自定义周历表 -->
     <div class="week-calendar">
-      <div class="flex items-center white-space-nowrap justify-between">
-        <div class="flex items-center ml-1rem">
-          <img
-            class="w-[1.25rem] h-[1.25rem] mr-0.5rem"
-            src="/static/middleground/images/portal/weekday/week-day.png"
-            mode="scaleToFill"
-          />
+      <div class="calendar-header">
+        <div class="header-left">
+          <NexiIcon icon="calendar" :size="20" class="header-icon" />
           <span class="week-day-title">日程安排</span>
           <span class="week-day-span">
-            {{
-              Number(currentDate.split("/")[1]) > 9
-                ? currentDate.split("/")[1]
-                : "0" + currentDate.split("/")[1]
-            }}月
+            {{ monthText }}月
           </span>
-          <span class="week-day-span1 w-2rem mb0.3rem">
-            {{ currentDate.split("/")[0] }}
-            <CaretDownOutlined class="mt--0.2rem" />
+          <span class="week-day-year" @click="togglePicker">
+            {{ yearText }}
+            <CaretDownOutlined class="caret-icon" />
           </span>
-          <div class="picker-box" style="opacity: 0">
+          <div class="picker-box" :style="{ opacity: showPicker ? 1 : 0 }">
             <a-date-picker
-              v-model:value="value"
+              v-model:value="pickerValue"
               :bordered="false"
               value-format="YYYY/M/D"
               @change="changeDate"
             />
           </div>
         </div>
-        <div class="pr-1rem flex items-center">
+        <div class="header-right">
           <span
-            v-show="
-              currentDate !=
-              `${new Date().getFullYear()}/${
-                new Date().getMonth() + 1
-              }/${new Date().getDate()}`
-            "
-            class="the-day line-height-1"
-            @click="backToday()"
-            >回到今日</span
-          >
-          <!-- <a class="m-l-auto flex items-center">
-            <span class="mr-4px color-var(--text-color-3)">编辑</span>
-            <img
-              src="https://bsy-sdl-web-1308012692.cos.ap-guangzhou.myqcloud.com/middleground/images/components/icon-right.png"
-              style="width: 1.3125rem; height: 1.3125rem"
-              alt=""
-            />
-          </a> -->
-          <CustomExtra title="编辑" @click="handleSchedule" />
+            v-show="!isCurrentWeek"
+            class="back-today"
+            @click="backToday"
+          >回到今日</span>
+          <a-button type="link" class="edit-btn" @click="handleSchedule">
+            <template #icon>
+              <NexiIcon icon="edit" :size="14" />
+            </template>
+            编辑
+          </a-button>
         </div>
       </div>
       <div class="calendar-body">
         <a-button type="link" class="nav-button" @click="previousWeek">
-          <img
-            class="w0.94rem h0.88rem"
-            src="https://bsy-sdl-web-1308012692.cos.ap-guangzhou.myqcloud.com/middleground/images/portal/icon-calendar-arrow-left.png"
-            alt=""
-          />
+          <NexiIcon icon="left" :size="14" />
         </a-button>
-        <div class="flex-1">
-          <div class="flex w-100%">
+        <div class="days-container">
+          <div class="day-names">
             <div
-              v-for="(item, index) in weeeks"
+              v-for="(name, index) in weekNames"
               :key="index"
-              class="day-column font-size-1rem"
+              class="day-column day-name"
             >
-              {{ item }}
+              {{ name }}
             </div>
           </div>
-          <div class="flex w-100%">
+          <div class="day-dates">
             <div
               v-for="(day, index) in weekDays"
               :key="index"
-              class="day-column"
+              class="day-column day-cell"
+              @click="selectDate(day.date)"
             >
-              <div class="day-date" @click="currentDate = toDay(day.date)">
-                <div
-                  :class="{
-                    'current-day': isActiveday(day.date),
-                    'today-day': isToday(day.date),
-                  }"
-                  class="font-size-1rem"
-                >
-                  {{ day.date.getDate() }}
-                </div>
-                <div
-                  :style="{ opacity: isHasNote(day.date).length ? 1 : 0 }"
-                  class="w-6px h-6px border-rd-100% bg-#05CD8A m-t-5px"
-                ></div>
+              <div
+                :class="{
+                  'date-circle': true,
+                  'current-day': isActiveDay(day.date),
+                  'today-day': isToday(day.date),
+                }"
+              >
+                {{ day.date.getDate() }}
               </div>
+              <div
+                :class="{ 'has-note-dot': hasNotes(day.date) }"
+                class="note-dot"
+              ></div>
             </div>
           </div>
         </div>
         <a-button type="link" class="nav-button" @click="nextWeek">
-          <img
-            class="w0.94rem h0.88rem"
-            src="https://bsy-sdl-web-1308012692.cos.ap-guangzhou.myqcloud.com/middleground/images/portal/icon-calendar-arrow-right.png"
-            alt=""
-          />
+          <NexiIcon icon="right" :size="14" />
         </a-button>
       </div>
     </div>
-    <!-- 待办事项 -->
+
+    <!-- 日程列表 -->
     <div class="week-schedule-note">
-      <div v-if="isHasNote(currentDate).length === 0">
-        <NexiNull
-          text="暂无日程安排"
-          :mt="false"
-          style="margin-top: 1.0625rem"
-        />
+      <div v-if="currentNotes.length === 0" class="empty-notes">
+        <NexiNull text="暂无日程安排" />
       </div>
       <div
-        v-for="item in computedDataForNum(currentDate)"
+        v-for="item in currentNotes"
         :key="item.id"
-        class="note-item cursor-pointer"
+        class="note-item"
         @click="handleDetail(item)"
       >
-        <img
-          class="note-item-iamge"
-          src="/static/middleground/images/portal/weekday/week-rigth.png"
-          alt=""
-        />
-        <div
-          class="flex flex-col items-center p-t-0.625rem p-b-0.625rem p-l-1rem p-r-1rem bg-#f3f4ff border-rd-0.25rem"
-        >
-          <img
-            class="w1.5rem h1.5rem"
-            src="/static/middleground/images/portal/weekday/week-time.png"
-            alt=""
-          />
-          <div class="note-date color-#4b67f4">
-            {{ formatNoteTime(item.startTime) }}
-          </div>
+        <div class="note-time-badge">
+          <NexiIcon icon="clock-circle" :size="18" color="#4b67f4" />
+          <div class="note-time-text">{{ formatNoteTime(item.startTime) }}</div>
         </div>
-        <div class="flex-1 note-center">
-          <div class="note-date color-#262626">
-            {{ item.title }}
-          </div>
-
-          <div class="w2.0625rem h2.0625rem">
-            <img
-              class="w100% h100%"
-              src="/static/middleground/images/portal/weekday/week-topath.png"
-              alt=""
-            />
-          </div>
+        <div class="note-content">
+          <div class="note-title">{{ item.title }}</div>
+          <NexiIcon icon="right" :size="16" color="#bfbfbf" />
         </div>
       </div>
     </div>
-    <!-- 自定义添加日程 -->
+
+    <!-- 添加日程 -->
     <div class="week-schedule-add" @click="handleSchedule">
-      <div
-        style="
-          position: absolute;
-          bottom: 2.1875rem;
-          width: 1.3125rem;
-          height: 1.3125rem;
-        "
-      >
-        <img
-          class="w100% h100%"
-          src="/static/middleground/images/portal/weekday/week-more.png"
-          alt=""
-        />
-      </div>
-      <img
-        class="w1.25rem h1.25rem m-r-0.5rem"
-        src="/static/middleground/images/portal/weekday/week-add.png"
-        alt=""
-      />
-      <div class="week-schedule-title">自定义添加日程，实现个人日程全安排</div>
+      <NexiIcon icon="plus" :size="20" color="#888" class="add-icon" />
+      <span class="add-text">自定义添加日程，实现个人日程全安排</span>
     </div>
 
     <LayoutDrawer
@@ -189,108 +120,142 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import { CaretDownOutlined } from "@ant-design/icons-vue";
 import { moment } from "./dayjs";
-import { getScheduleList } from "./runtime";
+import NexiIcon from "./icon.vue";
 import NexiNull from "./null.vue";
-import CustomExtra from "./custom-extra.vue";
 import LayoutDrawer from "./layout-drawer.vue";
 import ModalScheduleDetail from "./modal-schedule-detail.vue";
-const weeeks = ref(["日", "一", "二", "三", "四", "五", "六"]);
-const currentDate = ref(
-  `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}`,
+
+const props = withDefaults(
+  defineProps<{
+    value?: string;
+    schedules?: any[];
+    showEdit?: boolean;
+  }>(),
+  {
+    value: "",
+    schedules: () => [],
+    showEdit: true,
+  },
 );
-const value = ref(moment()); // 缓存表单值
 
-// 选中日期当天的待办事项
-const notes = ref<any>([]);
+const emits = defineEmits(["update:value", "changeDate", "loadSchedules"]);
 
+const weekNames = ref(["日", "一", "二", "三", "四", "五", "六"]);
+
+function getTodayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+const currentDate = ref(props.value || getTodayStr());
+const pickerValue = ref(moment());
+const showPicker = ref(false);
 const showScheduleDetail = ref(false);
 const scheduleDetail = ref<any>({});
 
-const emits = defineEmits(["changeDate"]);
-
 watch(
-  () => currentDate.value,
-  () => {
-    value.value = moment(currentDate.value, "YYYY/M/D");
-    emits("changeDate", currentDate.value);
+  () => props.value,
+  (val) => {
+    if (val && val !== currentDate.value) {
+      currentDate.value = val;
+      pickerValue.value = moment(val, "YYYY/M/D");
+    }
   },
-  { immediate: true, deep: true },
 );
-// 回到今日
-const backToday = () => {
-  currentDate.value = `${new Date().getFullYear()}/${
-    new Date().getMonth() + 1
-  }/${new Date().getDate()}`;
-};
 
-// 周历格数据
+watch(currentDate, (val) => {
+  pickerValue.value = moment(val, "YYYY/M/D");
+  emits("update:value", val);
+  emits("changeDate", val);
+});
+
+const monthText = computed(() => {
+  const parts = currentDate.value.split("/");
+  const m = Number(parts[1]);
+  return m > 9 ? parts[1] : "0" + parts[1];
+});
+
+const yearText = computed(() => {
+  return currentDate.value.split("/")[0];
+});
+
+const isCurrentWeek = computed(() => {
+  const today = getTodayStr();
+  const d1 = new Date(currentDate.value);
+  const d2 = new Date(today);
+  const diff = Math.abs(d1.getTime() - d2.getTime());
+  return diff < 7 * 24 * 60 * 60 * 1000;
+});
+
+function togglePicker() {
+  showPicker.value = !showPicker.value;
+}
+
+function backToday() {
+  currentDate.value = getTodayStr();
+}
+
 const weekDays = computed(() => {
   const days = [];
-  const startOfWeek = new Date(currentDate.value);
-  startOfWeek.setDate(
-    new Date(currentDate.value).getDate() -
-      new Date(currentDate.value).getDay(),
-  );
+  const cd = new Date(currentDate.value);
+  const dayOfWeek = cd.getDay();
+  const startOfWeek = new Date(cd);
+  startOfWeek.setDate(cd.getDate() - dayOfWeek);
 
   for (let i = 0; i < 7; i++) {
     const date = new Date(startOfWeek);
     date.setDate(startOfWeek.getDate() + i);
-    days.push({
-      date: date,
-    });
+    days.push({ date });
   }
   return days;
 });
 
-watchEffect(() => {
-  const startDate = moment(weekDays.value[0].date).format("YYYY/MM/DD");
-  const endDate = moment(weekDays.value[6].date).format("YYYY/MM/DD");
-  getSchedules(`${startDate} 00:00:00`, `${endDate} 23:59:59`);
-});
+watch(
+  () => props.schedules,
+  () => {
+    // schedules provided via prop — no API call needed
+  },
+  { deep: true },
+);
 
-const changeDate = (date: any) => {
-  currentDate.value = date ? date : currentDate.value;
-};
+watch(weekDays, () => {
+  if (weekDays.value.length) {
+    const startDate = moment(weekDays.value[0].date).format("YYYY/MM/DD");
+    const endDate = moment(weekDays.value[6].date).format("YYYY/MM/DD");
+    emits("loadSchedules", {
+      startTime: `${startDate} 00:00:00`,
+      endTime: `${endDate} 23:59:59`,
+    });
+  }
+}, { immediate: true });
 
-// const formattedDateRange = computed(() => {
-//   const startDate = weekDays.value[0].date;
-//   console.log('startDate', startDate);
-//   // const endDate = weekDays.value[6].date
-//   return `${formatDate(startDate)}`;
-// });
+function changeDate(date: any) {
+  if (date) {
+    currentDate.value = date;
+  }
+  showPicker.value = false;
+}
 
-// function formatDate(date: number | Date | undefined) {
-//   console.log(date);
-//   return `${new Date(date as Date).getFullYear()}-${new Date(date as Date).getMonth() + 1}-${new Date(date as Date).getDate()}`;
-// }
+function selectDate(date: Date) {
+  currentDate.value = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+}
 
 function previousWeek() {
-  const date = new Date(
-    new Date(currentDate.value).setDate(
-      new Date(currentDate.value).getDate() - 7,
-    ),
-  );
-  // 后期是否需要判断自动选中当周存在事项的日期
-  currentDate.value = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  const cd = new Date(currentDate.value);
+  cd.setDate(cd.getDate() - 7);
+  currentDate.value = `${cd.getFullYear()}/${cd.getMonth() + 1}/${cd.getDate()}`;
 }
 
 function nextWeek() {
-  const date = new Date(
-    new Date(currentDate.value).setDate(
-      new Date(currentDate.value).getDate() + 7,
-    ),
-  );
-  currentDate.value = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  const cd = new Date(currentDate.value);
+  cd.setDate(cd.getDate() + 7);
+  currentDate.value = `${cd.getFullYear()}/${cd.getMonth() + 1}/${cd.getDate()}`;
 }
 
-function isActiveday(date: {
-  getDate: () => number;
-  getMonth: () => number;
-  getFullYear: () => number;
-}) {
+function isActiveDay(date: Date) {
   const today = new Date(currentDate.value);
   return (
     date.getDate() === today.getDate() &&
@@ -299,11 +264,7 @@ function isActiveday(date: {
   );
 }
 
-function isToday(date: {
-  getDate: () => number;
-  getMonth: () => number;
-  getFullYear: () => number;
-}) {
+function isToday(date: Date) {
   const today = new Date();
   return (
     date.getDate() === today.getDate() &&
@@ -312,75 +273,75 @@ function isToday(date: {
   );
 }
 
-function toDay(date: any) {
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-}
-
-// 获取本周日程列表
-
-async function getSchedules(startTime: string, endTime: string) {
-  const res = await getScheduleList({
-    body: {
-      startTime: new Date(startTime).getTime(),
-      endTime: new Date(endTime).getTime(),
-    },
-  });
-  if (res.code === 200) {
-    notes.value = res.data;
-  }
-}
-
-// 判断当天是否有事项
-function isHasNote(date: any) {
-  const arr = notes.value.filter(
-    (item: { startTime: string }) =>
+function hasNotes(date: Date) {
+  if (!props.schedules || !props.schedules.length) return false;
+  return props.schedules.some(
+    (item: any) =>
       moment(item.startTime).format("YYYY/MM/DD") ===
       moment(date).format("YYYY/MM/DD"),
   );
-  // console.log('arr', arr.length, moment(date).format('YYYY-MM-DD'));
-  return arr;
 }
 
 function formatNoteTime(startTime: string) {
   return `${moment(startTime).format("MM-DD")} ${moment(startTime).format("HH:mm")}`;
 }
 
-// 跳转到日程管理页面
-const handleSchedule = () => {
+const currentNotes = computed(() => {
+  if (!props.schedules || !props.schedules.length) return [];
+  const arr = props.schedules.filter(
+    (item: any) =>
+      moment(item.startTime).format("YYYY/MM/DD") ===
+      moment(currentDate.value).format("YYYY/MM/DD"),
+  );
+  return arr.slice(0, 15);
+});
+
+function handleSchedule() {
   if (typeof window !== "undefined") {
     window.open("#");
   }
-};
+}
 
-// 弹出日程详情
-const handleDetail = (item: any) => {
+function handleDetail(item: any) {
   scheduleDetail.value = item;
   showScheduleDetail.value = true;
-};
-const closeScheduleDetail = () => {
-  showScheduleDetail.value = false;
-};
+}
 
-// 最多展示15条数据
-const computedDataForNum = (currentDate: any) => {
-  const arr = isHasNote(currentDate);
-  return arr.slice(0, 15);
-};
+function closeScheduleDetail() {
+  showScheduleDetail.value = false;
+}
 </script>
 
 <style lang="scss" scoped>
 .week-schedule {
-  // width: 100%;
-  // height: 100%;
-  // width: 39rem;
   height: 28.13rem;
   display: flex;
   flex-direction: column;
+  max-width: 39rem;
 }
+
 .week-calendar {
   padding: 0.75rem 0;
-  // font-family: Arial, sans-serif;
-  // margin: 0 auto;
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    position: relative;
+  }
+
+  .header-icon {
+    margin-right: 0.5rem;
+    color: #4b67f4;
+  }
+
   .week-day-title {
     font-weight: 600;
     font-size: 0.875rem;
@@ -388,52 +349,78 @@ const computedDataForNum = (currentDate: any) => {
     color: #262626;
     margin-right: 1.5625rem;
   }
+
   .week-day-span {
     font-weight: 400;
     font-size: 1rem;
     color: #262626;
   }
-  .week-day-span1 {
+
+  .week-day-year {
     margin-left: 0.75rem;
     margin-top: 0.25rem;
     font-weight: 400;
     font-size: 0.75rem;
-    color: var(--text-color-3);
+    color: var(--text-color-3, #8c8c8c);
+    cursor: pointer;
+  }
+
+  .caret-icon {
+    margin-top: -0.2rem;
+    font-size: 0.75rem;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+  }
+
+  .back-today {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.88rem;
+    color: #4b67f4;
+    line-height: 1;
+  }
+
+  .edit-btn {
+    font-size: 0.875rem;
+    color: var(--text-color-3, #8c8c8c);
   }
 }
+
 .picker-box {
-  position: relative;
+  position: absolute;
   left: -4.6875rem;
 }
-.the-day {
-  margin-right: 0.5rem;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 0.88rem;
-  color: #4b67f4;
-}
-.calendar-header {
+
+.calendar-body {
   display: flex;
-  justify-content: space-between;
+  line-height: 2.8125rem;
   align-items: center;
-  margin-bottom: 1.25rem;
 }
 
 .nav-button {
   border: none;
   padding: 0.625rem 0.9375rem;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 1rem;
   margin: 0.25rem 0.125rem;
 }
 
-.calendar-body {
+.days-container {
+  flex: 1;
+}
+
+.day-names {
   display: flex;
-  // min-width: 432px;
-  line-height: 2.8125rem;
-  align-items: center;
+  width: 100%;
+}
+
+.day-dates {
+  display: flex;
+  width: 100%;
 }
 
 .day-column {
@@ -443,63 +430,97 @@ const computedDataForNum = (currentDate: any) => {
 
 .day-name {
   font-weight: bold;
-  margin-bottom: 0.3125rem;
+  font-size: 1rem;
 }
 
-.day-date {
-  height: 3rem;
+.day-cell {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 0.875rem;
-  cursor: pointer;
-  div {
-    &:first-child {
-      height: 1.75rem;
-      width: 1.75rem;
-      line-height: 1.75rem;
-      border-radius: 50%;
-    }
+  height: 3rem;
+
+  .date-circle {
+    height: 1.75rem;
+    width: 1.75rem;
+    line-height: 1.75rem;
+    border-radius: 50%;
+    font-size: 1rem;
+  }
+
+  .current-day {
+    background: rgba(75, 103, 244, 0.3);
+  }
+
+  .today-day {
+    background: #4b67f4;
+    color: #fff;
+    font-weight: 600;
   }
 }
-.current-day {
-  background: rgba(75, 103, 244, 0.3);
-}
 
-.today-day {
-  background: #4b67f4;
-  color: #fff;
-  font-weight: 600;
+.note-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  margin-top: 5px;
+
+  &.has-note-dot {
+    background: #05cd8a;
+  }
 }
 
 .week-schedule-note {
   position: relative;
   padding: 0 1rem;
   height: 16.75rem;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+
+  .empty-notes {
+    margin-top: 1.0625rem;
+  }
+
   .note-item {
     display: flex;
     align-items: center;
-    justify-content: center;
     margin-bottom: 1rem;
-    border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+    border-radius: 0.25rem;
     border: 1px solid #e5edf5;
-    .note-item-iamge {
-      position: absolute;
-      right: -0.0625rem;
-      top: -0.0625rem;
+    cursor: pointer;
+    overflow: hidden;
+
+    .note-time-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.625rem 1rem;
+      background: #f3f4ff;
+      border-radius: 0.25rem;
+      min-width: 4rem;
     }
-    .note-date {
+
+    .note-time-text {
+      color: #4b67f4;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: 0.8rem;
+      margin-top: 4px;
     }
-    .note-center {
-      z-index: 1;
+
+    .note-content {
+      flex: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 1rem;
+      z-index: 1;
+    }
+
+    .note-title {
+      font-weight: 500;
+      font-size: 1rem;
+      color: #262626;
     }
   }
 }
@@ -513,15 +534,16 @@ const computedDataForNum = (currentDate: any) => {
   align-items: center;
   justify-content: center;
   position: relative;
-  .week-schedule-title {
+  cursor: pointer;
+
+  .add-icon {
+    margin-right: 0.5rem;
+  }
+
+  .add-text {
     font-weight: 400;
     font-size: 0.875rem;
-    color: var(--text-color-3);
-    cursor: pointer;
-
-    &:active {
-      opacity: 0.8;
-    }
+    color: var(--text-color-3, #8c8c8c);
   }
 }
 </style>

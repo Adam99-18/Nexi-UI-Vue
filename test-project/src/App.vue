@@ -180,12 +180,7 @@
     </section>
 
     <section class="test-section">
-      <h2>23. NexiCustomExtra</h2>
-      <nexi-custom-extra title="查看更多" @click="handleCustomExtraClick" />
-    </section>
-
-    <section class="test-section">
-      <h2>24. NexiDropDownFilter</h2>
+      <h2>23. NexiDropDownFilter</h2>
       <nexi-drop-down-filter
         :items="dropDownFilterItems"
         :options="dropDownFilterOptions"
@@ -202,7 +197,7 @@
     </section>
 
     <section class="test-section">
-      <h2>25. NexiDropDownSearch</h2>
+      <h2>24. NexiDropDownSearch</h2>
       <nexi-drop-down-search
         :options="dropDownSearchOptions"
         :field="'type'"
@@ -213,7 +208,7 @@
     </section>
 
     <section class="test-section">
-      <h2>26. NexiInfoCell</h2>
+      <h2>25. NexiInfoCell</h2>
       <nexi-info-cell
         logo-url="https://via.placeholder.com/60"
         name="示例项目"
@@ -223,13 +218,13 @@
     </section>
 
     <section class="test-section">
-      <h2>27. NexiTimeItem</h2>
+      <h2>26. NexiTimeItem</h2>
       <nexi-time-item :form="timeItemForm" :field="'time'" :show-time="true" @update:value="handleTimeItemUpdate" />
       <p>Value: {{ timeItemForm.time ? timeItemForm.time : '未选择' }}</p>
     </section>
 
     <section class="test-section">
-      <h2>28. NexiLayoutDrawer</h2>
+      <h2>27. NexiLayoutDrawer</h2>
       <nexi-button type="primary" @click="drawerShow = !drawerShow">Toggle Drawer</nexi-button>
       <nexi-layout-drawer :show="drawerShow" :width="400" @cancel="drawerShow = false">
         <div style="padding: 20px">
@@ -241,22 +236,13 @@
     </section>
 
     <section class="test-section">
-      <h2>29. NexiTableBackup</h2>
-      <nexi-table-backup
-        :table-id="'backup-test'"
-        :columns="tableBackupColumns"
-        :data-source="tableBackupData"
-        :pagination="false"
-        :show-tool-bars="false"
-        :bordered="true"
-        size="small"
+      <h2>28. NexiWeekCalendar</h2>
+      <nexi-week-calendar
+        v-model:value="weekCalendarValue"
+        :schedules="weekCalendarSchedules"
+        @load-schedules="handleLoadSchedules"
       />
-    </section>
-
-    <section class="test-section">
-      <h2>30. NexiWeekCalendar</h2>
-      <nexi-week-calendar v-model:value="weekCalendarValue" />
-      <p>Selected: {{ weekCalendarValue }}</p>
+      <p>Selected: {{ weekCalendarValue || 'Pick a date' }}</p>
     </section>
   </div>
 </template>
@@ -355,10 +341,7 @@ const handleCheckboxFilterSearchSelect = (val) => console.log('CheckboxFilterSea
 const handleCheckboxFilterSearchChange = (val) => console.log('CheckboxFilterSearch change:', val)
 const handleCheckboxFilterSearchInput = (val) => console.log('CheckboxFilterSearch input:', val)
 
-// 23. NexiCustomExtra
-const handleCustomExtraClick = () => console.log('CustomExtra clicked')
-
-// 24. NexiDropDownFilter
+// 23. NexiDropDownFilter
 const dropDownFilterItems = [
   { id: '1', name: '知识库A', value: '1', label: '知识库A' },
   { id: '2', name: '知识库B', value: '2', label: '知识库B' },
@@ -371,7 +354,7 @@ const handleDropDownFilterAdd = () => console.log('DropDownFilter add')
 const handleDropDownFilterRefresh = () => console.log('DropDownFilter refresh')
 const handleDropDownFilterRemove = (val) => console.log('DropDownFilter remove:', val)
 
-// 25. NexiDropDownSearch
+// 24. NexiDropDownSearch
 const dropDownSearchOptions = [
   { label: '类型A', value: 'a' },
   { label: '类型B', value: 'b' },
@@ -379,28 +362,25 @@ const dropDownSearchOptions = [
 ]
 const dropDownSearchForm = reactive({ type: undefined, keyword: '' })
 
-// 26. NexiInfoCell
+// 25. NexiInfoCell
 const handleInfoCellClick = () => console.log('InfoCell logo clicked')
 
-// 27. NexiTimeItem
+// 26. NexiTimeItem
 const timeItemForm = reactive({ time: null })
 const handleTimeItemUpdate = (val) => console.log('TimeItem update:value:', val)
 
-// 28. NexiLayoutDrawer
+// 27. NexiLayoutDrawer
 const drawerShow = ref(false)
 
-// 29. NexiTableBackup
-const tableBackupColumns = [
-  { title: 'Name', dataIndex: 'name', key: 'name' },
-  { title: 'Age', dataIndex: 'age', key: 'age' },
-]
-const tableBackupData = reactive([
-  { id: 1, name: 'Alice', age: 28 },
-  { id: 2, name: 'Bob', age: 32 },
-])
-
-// 30. NexiWeekCalendar
+// 28. NexiWeekCalendar
 const weekCalendarValue = ref('')
+const weekCalendarSchedules = ref([
+  { id: 1, title: '团队周会', startTime: new Date().toISOString() },
+  { id: 2, title: '项目评审', startTime: new Date(Date.now() + 86400000).toISOString() },
+])
+const handleLoadSchedules = ({ startTime, endTime }) => {
+  console.log('Load schedules:', startTime, '→', endTime)
+}
 </script>
 
 <style>
