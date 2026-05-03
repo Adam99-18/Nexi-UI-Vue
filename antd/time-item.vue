@@ -126,7 +126,7 @@ defineExpose({ reset, handleItem });
         </a-radio-button>
       </a-radio-group>
     </div>
-    <a-form-item v-show="isShow === true" class="mb-0 ml-5px w-100%">
+    <div v-show="isShow" class="ml-5px w-100%">
       <a-range-picker
         v-model:value="computedField"
         allow-clear
@@ -134,7 +134,7 @@ defineExpose({ reset, handleItem });
         class="w-100% text-center"
         @change="changeTime"
       />
-    </a-form-item>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped></style>
