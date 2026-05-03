@@ -17,7 +17,13 @@ const changeTab = (key: number | string) => {
   emits("update:value", key + "");
   emits("change", key + "");
 };
-const currentKey = computed(() => props.value);
+const currentKey = computed({
+  get: () => props.value,
+  set: (val) => {
+    emits("update:value", val + "");
+    emits("change", val + "");
+  },
+});
 </script>
 <template>
   <a-tabs :active-key="currentKey" class="components-antd-tabs" @change="changeTab">

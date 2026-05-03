@@ -126,9 +126,6 @@ const filteredItems = ref<any[]>([]);
 watch(
   [() => props.items],
   ([items]) => {
-    console.log("%c [  ]-130", "font-size:13px; background:pink; color:#bf2c9f;", props.items);
-    // console.log(133, options); // 原数组
-    console.log(134, items); // 当前选中的数组
     // !options ||
     if (!items) {
       filteredItems.value = [...(items || [])];
@@ -140,7 +137,6 @@ watch(
       const itemId = String(item.id || item.value);
       return optionsIds.includes(itemId);
     });
-    console.log("%c [过滤后的items]", "font-size:13px; background:lightgreen; color:#333;", filteredItems.value);
     // 根据过滤后的数组生成结果
     results.value =
       filteredItems.value?.map((it: any) => {
@@ -210,7 +206,6 @@ const handleSelect = (item: any) => {
 // };
 
 const handleClose = (value: any) => {
-  console.log("%c [ value ]-207", "font-size:13px; background:pink; color:#bf2c9f;", value);
   currentIds.value = currentIds.value.filter((it: string | number) => String(it) !== String(value));
   results.value = results.value.filter((it: any) => String(it.value) !== String(value));
   emits("remove", currentIds.value);
@@ -240,7 +235,6 @@ const setData = (ids: Array<string | number>) => {
 };
 
 const getPopupContainer: any = () => {
-  console.log(198, props.isOwner);
   if (!props.isOwner) return;
   if (typeof window !== "undefined") {
     return document.querySelector(props.container) || document.body;
@@ -427,7 +421,7 @@ defineExpose({
     <div v-if="openStatus" class="fixed left-0 right-0 top-0 bottom-0 z-1 w-100% h-100% bg-[rgba(0,0,0,0)]"></div>
   </div>
 </template>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 $bg: #fff;
 
 .components-antd-drop-down-filter-box {

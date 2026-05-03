@@ -16,7 +16,10 @@ const props = defineProps({
 });
 
 const emits = defineEmits(['update:value']);
-const valuePro = computed(() => props.value);
+const valuePro = computed({
+  get: () => props.value,
+  set: (val) => emits('update:value', val),
+});
 const change = (e: any) => {
   emits('update:value', e.target.value);
 };

@@ -44,30 +44,25 @@ const props = withDefaults(
   },
 );
 
-// TODO: wuxiaolin 修复form表单的value值校验失败问题
-let formState = reactive(props.value);
-// let formState = ref<any>(props.value);
+const formState = reactive({ ...props.value });
 watch(
   () => props.value,
   (val: any) => {
-    // formState.value = val;
-    formState = val;
+    Object.keys(formState).forEach((key) => delete formState[key]);
+    Object.assign(formState, val);
   },
+  { deep: true },
 );
 
 const onFinish = (values: any) => {
-  console.log("Success:", values);
   emits("search", values);
 };
 const reset = () => {
-  console.log("reset：重置表单");
-
-  // emits('reset', values)
-  // formState.value = resetObj(cloneDeep(props.value));
-  formState = resetObj(cloneDeep(props.value));
+  Object.keys(formState).forEach((key) => delete formState[key]);
+  Object.assign(formState, resetObj(cloneDeep(props.value)));
 };
 const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
+  console.error("Form validation failed:", errorInfo);
 };
 const changeValue = (value: any, column: QueryForm) => {
   column.componentProps.onChange && column.componentProps.onChange(value, column);
@@ -99,8 +94,6 @@ const validateFields = (fields: string[]) => {
 };
 // 清除校验
 const clearValidate = () => {
-  console.log("clearValidate：清除校验");
-
   return new Promise(async (resolve) => {
     const res = await formRef.value.resetFields();
     resolve(res);

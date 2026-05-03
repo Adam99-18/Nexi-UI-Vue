@@ -16,9 +16,29 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  visible: {
+    type: Boolean,
+    default: undefined,
+  },
 });
-const emits = defineEmits(['ok', 'cancel']);
+const emits = defineEmits(['ok', 'cancel', 'update:visible']);
 const visible = ref(false);
+
+// 支持外部通过 visible prop + v-model:visible 控制弹窗显隐
+watch(
+  () => props.visible,
+  (val) => {
+    if (val !== undefined) {
+      visible.value = val;
+    }
+  },
+  { immediate: true },
+);
+watch(visible, (val) => {
+  if (props.visible !== undefined && props.visible !== val) {
+    emits('update:visible', val);
+  }
+});
 
 const params = ref<any>({});
 
@@ -40,7 +60,7 @@ const open = (p: any = {}) => {
 
 /** 关闭弹窗 */
 const close = () => {
-  if (!visible.value) return; // 防止watch导致多次emit
+  if (!visible.value) return;
   visible.value = false;
   emits('cancel');
 };
@@ -52,8 +72,9 @@ const handleOk = () => {
 
 const getContainer = () => {
   if (typeof window !== "undefined") {
-    return document.querySelector(props.layout) as HTMLElement;
+    return document.querySelector(props.layout) || document.body;
   }
+  return document.body;
 };
 
 /** 暴露出去的接口 */

@@ -60,12 +60,7 @@ const open = (p: any = {}) => {
 
 /** 关闭弹窗 */
 const close = () => {
-  console.log(
-    "%c [  ]-62",
-    "font-size:13px; background:pink; color:#bf2c9f;",
-    visible.value,
-  );
-  if (!visible.value) return; // 防止watch导致多次emit
+  if (!visible.value) return;
   visible.value = false;
   emits("cancel");
 };
@@ -77,8 +72,9 @@ const handleOk = () => {
 
 const getContainer = () => {
   if (typeof window !== "undefined") {
-    return document.querySelector(props.layout) as HTMLElement;
+    return document.querySelector(props.layout) || document.body;
   }
+  return document.body;
 };
 
 /** 暴露出去的接口 */
@@ -122,7 +118,7 @@ defineExpose({
     </template>
   </a-modal>
 </template>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .components-antd-modal {
   .ant-modal-title {
     :deep(*) {

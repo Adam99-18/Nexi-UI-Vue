@@ -45,7 +45,7 @@ const changeValue = (value: any) => {
     </a-flex>
   </div>
 </template>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .component-textarea {
   .resize-none {
     resize: none;

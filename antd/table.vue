@@ -185,7 +185,6 @@ const initSortable = () => {
       //这里千万不要用onEnd 方法
       // onUpdate: function (evt) {},
       onEnd: function (evt) {
-        console.log(evt, evt.oldIndex, evt.newIndex);
         // TODO: wuxiaolin 这里需要-1
         const o = (evt?.oldIndex || 0) - 1 || 0;
         const n = (evt?.newIndex || 0) - 1 || 0;
@@ -216,7 +215,6 @@ const sortListAndUpdate = (list: any[], o: any, n: any) => {
 };
 
 const changePage = (page: number) => {
-  console.log("%c [  ]-212", "font-size:13px; background:pink; color:#bf2c9f;", page);
   if (page < 1) return;
   if (page > (props.pagination as any).pages) {
     return;
@@ -224,7 +222,6 @@ const changePage = (page: number) => {
   props?.pagination?.onChange?.(page, props.pagination.pageSize, props.pagination.filters, props.pagination.sorter);
 };
 const enterChangePage = (e: any) => {
-  console.log("%c [  ]-234", "font-size:13px; background:pink; color:#bf2c9f;", e.target.value);
   changePage(Number(e.target.value));
   currentPage.value = undefined;
 };

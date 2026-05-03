@@ -87,7 +87,6 @@ const handleSelect = (index: any) => {
 watch(
   () => props.value,
   (value) => {
-    console.log("value", value);
     if (value && value.length > 0) {
       list.value.forEach((item: any) => {
         item.checked = value.includes(item.value);

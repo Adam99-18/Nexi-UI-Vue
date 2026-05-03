@@ -68,15 +68,14 @@ const params = ref<{
   [key: string]: any;
 }>({});
 const formRef = ref<any>();
-let formState = reactive<any>(props.value);
-let formColumns = reactive<FormParams[]>(props.columns);
+const formState = reactive<any>({ ...props.value });
+const formColumns = reactive<FormParams[]>([...props.columns]);
 
 watch(
   () => props.value,
   (value) => {
-    // TODO: wuxiaolin 数据合并出现重置数据问题，暂时取消合并
-    // Object.assign(formState, value);
-    formState = value;
+    Object.keys(formState).forEach((key) => delete formState[key]);
+    Object.assign(formState, value);
   },
   {
     deep: true,
@@ -85,8 +84,9 @@ watch(
 );
 watch(
   () => props.columns,
-  () => {
-    formColumns = props.columns;
+  (val) => {
+    formColumns.length = 0;
+    formColumns.push(...val);
   },
   {
     immediate: true,

@@ -143,8 +143,6 @@ const initSortable = () => {
       //这里千万不要用onEnd 方法
       // onUpdate: function (evt) {},
       onEnd: function (evt) {
-        console.log(evt, evt.oldIndex, evt.newIndex);
-
         if (evt.newIndex >= props.dataSource.length) return;
 
         // TODO: wuxiaolin 这里需要-1

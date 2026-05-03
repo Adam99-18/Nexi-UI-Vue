@@ -10,10 +10,17 @@ const props = defineProps({
     type: [String, Number],
     default: () => "",
   },
+  /**
+   * 是否显示内容，用于条件渲染
+   */
+  isShow: {
+    type: Boolean,
+    default: () => true,
+  },
 });
 </script>
 <template>
-  <div class="font-size-[var(--font-size)] text-[var(--text-color)] break-all">
-    {{ props.text || "" }}
+  <div v-if="props.isShow" class="font-size-[var(--font-size)] text-[var(--text-color)] break-all">
+    <slot>{{ props.text || "" }}</slot>
   </div>
 </template>

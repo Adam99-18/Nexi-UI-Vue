@@ -299,7 +299,7 @@ defineExpose({
   padding: 0 10px;
 }
 </style>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 $bg: #fff;
 
 .components-antd-drop-down-filter-search-box {

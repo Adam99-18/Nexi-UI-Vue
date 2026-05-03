@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const emits = defineEmits(["change"]);
+const emits = defineEmits(["change", "update:checked"]);
 const props = defineProps({
   /**
    * 是否选中
@@ -15,6 +15,7 @@ const props = defineProps({
 });
 // 切换开关状态
 const switchStatus = () => {
+  emits("update:checked", !props.checked);
   emits("change", !props.checked);
 };
 </script>

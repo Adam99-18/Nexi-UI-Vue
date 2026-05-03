@@ -59,13 +59,6 @@ const changeTime = (value: any) => {
   // 更新内部状态
   computedField.value = formattedValue;
 
-  // 控制台输出格式化的日期时间，展示处理结果
-  console.log(
-    "Formatted start of day:",
-    formattedValue[0]?.format("YYYY-MM-DD HH:mm:ss")
-  );
-  console.log("Formatted end of day:", formattedValue[1]?.format("YYYY-MM-DD HH:mm:ss"));
-
   // 发出更新事件，使用Unix时间戳
   emits(
     "update:value",

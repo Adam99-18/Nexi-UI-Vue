@@ -2,7 +2,7 @@
 import { computed, type PropType } from "vue";
 import { usePermission } from "./runtime";
 import NexiIcon from "./icon.vue";
-import type { ButtonType } from "ant-design-vue/es/button";
+import type { ButtonType } from "ant-design-vue";
 
 // const emits = defineEmits(["click"]);
 const props = defineProps({

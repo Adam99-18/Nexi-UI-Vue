@@ -7,6 +7,7 @@ import NexiDropDown from "./drop-down.vue";
 import NexiTimeItem from "./time-item.vue";
 import NexiCheckboxFilter from "./checkbox-filter.vue";
 import NexiCheckboxFilterSearch from "./checkbox-filter-search.vue";
+import NexiIcon from "./icon.vue";
 const Nexi: any = {
   Input,
   Select,
@@ -28,28 +29,49 @@ const props = withDefaults(
     value: { [key: string]: any };
     columns: QueryForm[];
     customRequestOptions?: boolean;
+    /** Row gutter, per a-row gutter. Default [10, 16] (horizontal 10px, vertical 16px) */
+    gutter?: number | [number, number];
+    /** Extra CSS class on the form wrapper */
+    wrapperClass?: string;
+    /** Extra inline style on the form wrapper */
+    wrapperStyle?: Record<string, any>;
+    /** Search button text */
+    searchText?: string;
+    /** Reset button text */
+    resetText?: string;
   }>(),
   {
     value: () => ({}),
     columns: () => [],
     customRequestOptions: false,
+    gutter: () => [10, 16],
+    wrapperClass: '',
+    wrapperStyle: () => ({}),
+    searchText: '搜索',
+    resetText: '重置',
   },
 );
 
 const defaultValue = reactive<any>({});
 onBeforeMount(() => {
   Object.assign(defaultValue, props.value);
-  console.log(defaultValue);
 });
 
-let formState = reactive(props.value);
+const formState = reactive({ ...props.value });
+watch(
+  () => props.value,
+  (val: any) => {
+    Object.keys(formState).forEach((key) => delete formState[key]);
+    Object.assign(formState, val);
+  },
+  { deep: true },
+);
 
 const componentRef = ref<any>();
 const onFinish = (values: any) => {
   emits("search", values);
 };
 const reset = async () => {
-  console.log("reset：重置表单", defaultValue);
   let value;
   for (const key in formState) {
     value = defaultValue[key];
@@ -62,7 +84,7 @@ const reset = async () => {
   emits("search", formState);
 };
 const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
+  console.error("Form validation failed:", errorInfo);
 };
 const changeValue = (value: any, column: QueryForm) => {
   column.componentProps.onChange && column.componentProps.onChange(value, column);
@@ -88,7 +110,11 @@ watch(
 );
 </script>
 <template>
-  <div class="components-search-form pt-0">
+  <div
+    class="components-search-form pt-0"
+    :class="props.wrapperClass"
+    :style="props.wrapperStyle"
+  >
     <a-form
       :model="formState"
       autocomplete="off"
@@ -96,144 +122,119 @@ watch(
       @finish="onFinish"
       @finish-failed="onFinishFailed"
     >
-      <!-- <a-row :gutter="10"> -->
-
-      <div class="flex-wrap">
-        <template v-for="column in computedColumns" :key="column.field">
-          <!-- <a-col
-            v-show="showMoreSearch ? true : index < 6"
-            :xs="{ span: 24, offset: 0 }"
-            :sm="{ span: 24, offset: 0 }"
-            :md="{ span: 12, offset: 0 }"
-            :lg="{ span: 12, offset: 0 }"
-            :xl="{ span: 6, offset: 0 }"
-            :xxl="{ span: column?.colProps?.span || 6, offset: 0 }"
-          > -->
-          <a-form-item
-            :label-align="column?.componentProps?.labelAlign || 'left'"
-            :label="column.label"
-            :name="column.field"
-            :rules="column.rules"
-            :colon="false"
-            class="mr-8px mb-16px"
-            style="border: 1px solid #d9d9d9; border-radius: 2px 0 0 2px"
+      <a-row :gutter="props.gutter">
+        <template v-for="(column, index) in computedColumns" :key="column.field">
+          <a-col
+            v-show="column.isShow !== false"
+            v-bind="{
+              xs: column?.colProps?.xs || { span: 24 },
+              sm: column?.colProps?.sm || { span: 24 },
+              md: column?.colProps?.md || { span: 12 },
+              lg: column?.colProps?.lg || { span: 12 },
+              xl: column?.colProps?.xl || { span: 8 },
+              xxl: column?.colProps?.xxl || { span: column?.colProps?.span || 6 },
+            }"
           >
-            <!-- <template #label>
-                <span v-if="column.label" style="padding: 0 14px">
-                  {{ column.label }}
-                </span>
-              </template> -->
-            <component
-              :is="Nexi[`${column.component}`]"
-              ref="componentRef"
-              v-model:value="formState[column.field]"
-              v-trim
-              :placeholder="column?.componentProps?.placeholder"
-              :options="column?.componentProps?.options"
-              :tree-data="column?.componentProps?.options"
-              :field="column.field"
-              :field2="column.field2"
-              :label-name="column?.componentProps?.labelName"
-              :form="formState"
-              :is-show="column?.componentProps?.isShow"
-              :show-time="column?.componentProps?.showTime"
-              :mode="column?.componentProps?.mode"
-              :bordered="false"
-              :show-search="
-                typeof column.componentProps?.showSearch === 'boolean'
-                  ? column.componentProps?.showSearch
-                  : column.component === 'NexiSelect'
-                    ? true
-                    : false
-              "
-              :filter-option="
-                column.component === 'NexiSelect'
-                  ? (input: any, option: any) => {
-                      return option.label && typeof option.label === 'string'
-                        ? option.label.toLowerCase().includes(input.toLowerCase())
-                        : false;
-                    }
-                  : undefined
-              "
-              allow-clear
-              class="text-left"
-              :width="column.width || '200px'"
-              :style="{
-                width: column.width || '200px',
-                maxWidth: column.maxWidth || 'auto',
-                minWidth: column.minWidth || 'auto',
-              }"
-              @select="
-                ['NexiSelect', 'NexiCheckboxFilterSearch', 'NexiCheckboxFilter'].includes(String(column.component))
-                  ? select($event, column)
-                  : undefined
-              "
-              @change="changeValue($event, column)"
-            />
-          </a-form-item>
-          <!-- </a-col> -->
+            <a-form-item
+              :label-align="column?.componentProps?.labelAlign || 'left'"
+              :label="column.label"
+              :name="column.field"
+              :rules="column.rules"
+              :colon="false"
+              class="search-form-item mr-0 mb-16px"
+            >
+              <component
+                :is="Nexi[`${column.component}`]"
+                ref="componentRef"
+                v-model:value="formState[column.field]"
+                v-trim
+                :placeholder="column?.componentProps?.placeholder"
+                :options="column?.componentProps?.options"
+                :tree-data="column?.componentProps?.options"
+                :field="column.field"
+                :field2="column.field2"
+                :label-name="column?.componentProps?.labelName"
+                :form="formState"
+                :is-show="column?.componentProps?.isShow"
+                :show-time="column?.componentProps?.showTime"
+                :mode="column?.componentProps?.mode"
+                :bordered="false"
+                :show-search="
+                  typeof column.componentProps?.showSearch === 'boolean'
+                    ? column.componentProps?.showSearch
+                    : column.component === 'NexiSelect'
+                      ? true
+                      : false
+                "
+                :filter-option="
+                  column.component === 'NexiSelect'
+                    ? (input: any, option: any) => {
+                        return option.label && typeof option.label === 'string'
+                          ? option.label.toLowerCase().includes(input.toLowerCase())
+                          : false;
+                      }
+                    : undefined
+                "
+                allow-clear
+                class="text-left"
+                :width="column.width || '200px'"
+                :style="{
+                  width: column.width || '200px',
+                  maxWidth: column.maxWidth || 'auto',
+                  minWidth: column.minWidth || 'auto',
+                }"
+                @select="
+                  ['NexiSelect', 'NexiCheckboxFilterSearch', 'NexiCheckboxFilter'].includes(String(column.component))
+                    ? select($event, column)
+                    : undefined
+                "
+                @change="changeValue($event, column)"
+              />
+            </a-form-item>
+          </a-col>
         </template>
 
-        <!-- :xs="{ span: columns?.length >= 3 ? 24 : 24, offset: 0 }"
-          :sm="{ span: columns?.length >= 3 ? 24 : 24, offset: 0 }"
-          :md="{ span: columns?.length >= 3 ? 24 : 12, offset: 0 }"
-          :lg="{ span: columns?.length >= 3 ? 24 : 12, offset: 0 }"
-          :xl="{ span: columns?.length >= 3 ? 24 : 8, offset: 0 }"
-          :xxl="{ span: columns?.length >= 6 ? 24 : 12, offset: 0 }" -->
-        <!-- :class="{
-              'text-right': columns?.length >= 6,
-            }" -->
-        <!-- <a-col :span="6"> -->
-        <a-form-item class="mb-16px">
-          <!-- <NexiButton type="primary" icon="search" html-type="submit">
-              搜索
-            </NexiButton>
-            <NexiButton type="default" @click="reset()">重置</NexiButton>
-            <NexiButton v-if="columns?.length > 6" type="default" @click="toggleShow()">
-              {{ showMoreSearch ? "收起" : "展开" }}
-            </NexiButton> -->
-          <div class="inline-block">
-            <a-flex class="ant-btn-search-box flex-center-center">
-              <div class="pl-0 pr-0">
-                <a-button class="ant-btn-search" html-type="submit">
-                  <img
-                    class="w-24px h-24px mr-6px"
-                    src="https://bsy-sdl-web-1308012692.cos.ap-guangzhou.myqcloud.com/middleground/images/components/icon-search.png"
-                  />
-                  <span class="inline-block">搜索</span>
-                </a-button>
-              </div>
-              <div class="ant-btn-search-line"></div>
-              <div class="pl-0 pr-6px">
-                <a-button class="ant-btn-search" @click="reset()">
-                  <img
-                    class="w-24px h-24px mr-3px"
-                    src="https://bsy-sdl-web-1308012692.cos.ap-guangzhou.myqcloud.com/middleground/images/components/icon-reset.png"
-                  />
-                  <span class="inline-block">重置</span>
-                </a-button>
-              </div>
-              <!-- <template v-if="columns?.length > 6">
-                <div class="ant-btn-search-line"></div>
-                <div class="pl-0 pr-3px ml-3px" @click="toggleShow()">
-                  <a-button class="ant-btn-search min-w-77px">
-                    <span class="inline-block">{{
-                      showMoreSearch ? "收起" : "展开"
-                    }}</span>
+        <a-col
+          v-bind="{
+            xs: { span: 24 },
+            sm: { span: 24 },
+            md: { span: 12 },
+            lg: { span: 12 },
+            xl: { span: 8 },
+            xxl: { span: 6 },
+          }"
+        >
+          <a-form-item class="mb-16px">
+            <div class="inline-block">
+              <a-flex class="ant-btn-search-box flex-center-center">
+                <div class="pl-0 pr-0">
+                  <a-button class="ant-btn-search" html-type="submit">
+                    <NexiIcon icon="search" :size="16" color="var(--text-color)" class="mr-6px" />
+                    <span class="inline-block">{{ props.searchText }}</span>
                   </a-button>
                 </div>
-              </template> -->
-            </a-flex>
-          </div>
-        </a-form-item>
-        <!-- </a-col> -->
-        <!-- </a-row> -->
-      </div>
+                <div class="ant-btn-search-line"></div>
+                <div class="pl-0 pr-6px">
+                  <a-button class="ant-btn-search" @click="reset()">
+                    <NexiIcon icon="refresh" :size="16" color="var(--text-color)" class="mr-3px" />
+                    <span class="inline-block">{{ props.resetText }}</span>
+                  </a-button>
+                </div>
+              </a-flex>
+            </div>
+          </a-form-item>
+        </a-col>
+      </a-row>
     </a-form>
   </div>
 </template>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .components-search-form {
+  .search-form-item {
+    border: 1px solid #d9d9d9;
+    border-radius: 2px 0 0 2px;
+  }
+
   .ant-form-item .ant-form-item-label {
     color: var(--text-color);
     border-right: 1px solid #d9d9d9;
