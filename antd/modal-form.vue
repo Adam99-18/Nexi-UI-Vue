@@ -152,10 +152,9 @@ const validateFields = (record?: any) => {
 
 const getContainer = () => {
   if (typeof window !== "undefined") {
-    return document.querySelector(
-      props.container || ".layout-wrap",
-    ) as HTMLElement;
+    return document.querySelector(props.container || ".layout-wrap") || document.body;
   }
+  return document.body;
 };
 
 /** 暴露出去的接口 */

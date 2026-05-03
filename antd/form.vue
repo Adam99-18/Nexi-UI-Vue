@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref, watch, type Ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import { useQueryForm, useTool, type QueryForm } from "./runtime";
 import {
   Input,
@@ -99,7 +99,7 @@ const clearValidate = () => {
     resolve(res);
   });
 };
-const columns: Ref<QueryForm[]> = useQueryForm(props.columns);
+const columns = useQueryForm(props.columns);
 
 defineExpose({
   reset,

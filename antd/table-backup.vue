@@ -86,8 +86,9 @@ const changeTableSize = (
 };
 const getPopupContainer: () => any = () => {
   if (typeof window !== "undefined") {
-    return document.querySelector(".components-table-wrap") as HTMLElement;
+    return document.querySelector(".components-table-wrap") || document.body;
   }
+  return document.body;
 };
 
 const handleResizeColumn = (w: number, col: any) => {

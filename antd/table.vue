@@ -129,8 +129,9 @@ const changeTableSize = (size: TableSize.Small | TableSize.Default | TableSize.M
 };
 const getPopupContainer: () => any = () => {
   if (typeof window !== "undefined") {
-    return document.querySelector(".components-table-wrap") as HTMLElement;
+    return document.querySelector(".components-table-wrap") || document.body;
   }
+  return document.body;
 };
 
 const handleResizeColumn = (w: number, col: any) => {
@@ -301,7 +302,7 @@ watch(
     newColumns.value = cloneDeep(defaultColumns.value);
 
     // 判断是否
-    const rowDrag = newValueColumns.findIndex((item: any) => item.rowDrag) !== -1;
+    const rowDrag = newValueColumns.findIndex((item: any) => item?.rowDrag) !== -1;
     if ((rowDrag || props.draggable) && !isInitSortable.value) {
       isInitSortable.value = true;
 
