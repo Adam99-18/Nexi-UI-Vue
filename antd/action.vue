@@ -19,53 +19,38 @@ const props = withDefaults(
     columnParams: undefined,
   },
 );
+
+const loadingMap = ref(new Map<string, boolean>());
+
 const computedActions = computed(() => {
-  const actions = props.actions
+  return props.actions
     .filter((item) => {
       const auth = item.auth;
       if (!auth || !auth.length) return true;
-      const result = usePermission(auth);
-      if (!result) {
-        return false;
-      }
-      return true;
+      return usePermission(auth);
     })
+    .filter((item) => item.isShow === undefined || item.isShow !== false)
     .map((item) => {
       const onClick = item.onClick;
-      // && !hasClickFnFlag(onClick)
       if (isAsyncFunction(onClick)) {
-        item.onClick = debounce(async () => {
-          loadingMap.value.set(item.key, true);
-          await onClick(props.columnParams).finally(() => {
-            loadingMap.value.delete(item.key);
-          });
-        });
-        // setClickFnFlag(item.onClick);
-        // && !hasClickFnFlag(onClick)
+        return {
+          ...item,
+          onClick: debounce(async () => {
+            loadingMap.value.set(item.key, true);
+            await onClick(props.columnParams).finally(() => {
+              loadingMap.value.delete(item.key);
+            });
+          }),
+        };
       } else if (isFunction(onClick)) {
-        item.onClick = debounce(onClick);
-        // setClickFnFlag(item.onClick);
+        return {
+          ...item,
+          onClick: debounce(onClick),
+        };
       }
-      if (item.icon) {
-        // <Icons
-        //     icon={item.icon}
-        //     size={13}
-        //     class={{ 'inline-block': true, 'mr-0': !!item.label }}
-        //   />
-        item.icon = h(Icons, {
-          icon: item.icon,
-          size: 13,
-          class: { 'inline-block': true, 'mr-0': !!item.label },
-        });
-      }
-
-      return item;
+      return { ...item };
     });
-  return actions.filter(
-    (item) => item.isShow === undefined || item.isShow !== false,
-  );
 });
-const loadingMap = ref(new Map<string, boolean>());
 
 const getTooltip = (data: ActionItem['tooltip']): TooltipProps => {
   return {
@@ -74,14 +59,19 @@ const getTooltip = (data: ActionItem['tooltip']): TooltipProps => {
     ...(isString(data) ? { title: data } : data),
   };
 };
+
 const ActionItemRender: FunctionalComponent<ActionItem> = (
   action,
   { slots },
 ) => {
   const { popConfirm, tooltip } = action;
+
   const PopconfirmRender = () => {
     if (popConfirm) {
-      return h(Popconfirm, popConfirm, { default: slots.default });
+      return h(Popconfirm, {
+        ...popConfirm,
+        onConfirm: () => action.onClick?.(),
+      }, { default: slots.default });
     }
     return slots.default?.();
   };
@@ -103,10 +93,12 @@ const ActionItemRender: FunctionalComponent<ActionItem> = (
           type="link"
           size="small"
           class="p-0!"
-          v-bind="actionItem"
-          :loading="loadingMap.get(actionItem.key)"
-          @click.stop="actionItem.onClick"
+          :loading="!actionItem.popConfirm && loadingMap.get(actionItem.key)"
+          @click.stop="!actionItem.popConfirm && actionItem.onClick?.()"
         >
+          <template #icon>
+            <Icons v-if="actionItem.icon" :icon="actionItem.icon" :size="13" class="inline-block" :class="{ 'mr-0': !!actionItem.label }" />
+          </template>
           <a style="margin-inline-start: 0">{{ actionItem.label }}</a>
         </a-button>
       </ActionItemRender>
