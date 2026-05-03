@@ -1,6 +1,6 @@
 # View 文本展示
 
-只读文本展示组件，用于详情页数据展示。
+只读文本展示组件，支持条件渲染和 slot 自定义内容。
 
 ## 何时使用
 
@@ -16,44 +16,33 @@
 <template>
   <div>
     <NexiView text="这是一段只读展示文本" />
-  </div>
-</template>
-```
-:::
-
-### 数字类型
-
-:::demo 支持 number 类型，用于金额、统计等数值展示。
-```vue
-<template>
-  <div style="display: flex; flex-direction: column; gap: 8px;">
     <NexiView :text="12800" />
-    <NexiView :text="99.5" />
-    <NexiView :text="0" />
   </div>
 </template>
 ```
 :::
 
-### 详情页场景
+### 条件显示
 
-:::demo 常见的详情页字段只读展示。
+:::demo `isShow` 为 false 时组件不渲染（`v-if`）。
 ```vue
 <template>
-  <div style="max-width: 400px; background: var(--vp-c-bg-soft); padding: 16px; border-radius: 8px;">
-    <div style="display: flex; margin-bottom: 8px;">
-      <span style="width: 80px; color: var(--vp-c-text-2);">名称：</span>
-      <NexiView text="Nexi-UI 组件库" />
-    </div>
-    <div style="display: flex; margin-bottom: 8px;">
-      <span style="width: 80px; color: var(--vp-c-text-2);">版本：</span>
-      <NexiView text="1.0.0" />
-    </div>
-    <div style="display: flex;">
-      <span style="width: 80px; color: var(--vp-c-text-2);">描述：</span>
-      <NexiView text="企业级中后台 Vue 3 组件库" />
-    </div>
+  <div>
+    <NexiView text="可见内容" :is-show="true" />
+    <NexiView text="不可见内容" :is-show="false" />
   </div>
+</template>
+```
+:::
+
+### 使用 Slot
+
+:::demo 默认 slot 可以覆盖 text prop 的内容。
+```vue
+<template>
+  <NexiView>
+    <span style="color: #4b67f4;">通过 slot 自定义内容</span>
+  </NexiView>
 </template>
 ```
 :::
@@ -65,7 +54,16 @@
 | 参数 | 说明 | 类型 | 默认值 | 必填 |
 |------|------|------|--------|------|
 | text | 展示文本 | `string \| number` | `""` | 否 |
+| isShow | 是否显示（false 时不渲染） | `boolean` | `true` | 否 |
+
+### Slots
+
+| 插槽名 | 说明 |
+|--------|------|
+| default | 自定义展示内容（覆盖 text prop） |
 
 ## 注意事项
 
-- 字体大小和颜色通过 CSS 变量控制，主题变化时自动适配
+- `isShow: false` 时使用 `v-if` 不渲染，非 `display: none`
+- 字体大小和颜色通过 CSS 变量（`--font-size`、`--text-color`）控制，支持主题适配
+- slot 内容会覆盖 `text` prop 的显示

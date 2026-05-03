@@ -1,6 +1,6 @@
 # Switch 开关
 
-带启用/禁用文本标签的开关组件。
+带启用/禁用文本标签的开关组件，基于 ant-design-vue Switch。
 
 ## 何时使用
 
@@ -11,23 +11,11 @@
 
 ### 基础用法
 
-:::demo 通过 `checked` 属性控制开关状态。
+:::demo 通过 `checked` 控制状态，使用 `v-model:checked` 双向绑定。
 ```vue
 <template>
   <div>
-    <NexiSwitch :checked="true" />
-  </div>
-</template>
-```
-:::
-
-### 关闭状态
-
-:::demo 设置 `checked` 为 false 显示关闭状态。
-```vue
-<template>
-  <div>
-    <NexiSwitch :checked="false" />
+    <NexiSwitch :checked="true" @update:checked="(val) => console.log('切换:', val)" @change="(val) => console.log('change:', val)" />
   </div>
 </template>
 ```
@@ -35,7 +23,7 @@
 
 ### 禁用状态
 
-:::demo 设置 `disabled` 属性禁用开关。
+:::demo 设置 `disabled` 禁止操作。
 ```vue
 <template>
   <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -59,9 +47,11 @@
 
 | 事件名 | 说明 | 回调参数 |
 |--------|------|----------|
+| update:checked | 状态切换（v-model:checked） | `(checked: boolean)` |
 | change | 状态切换 | `(checked: boolean)` |
 
 ## 注意事项
 
-- 组件不通过 `v-model` 双向绑定，而是通过 `change` 事件通知父组件更新 `checked` prop
-- 开启状态显示"启用"，关闭状态显示"禁用"
+- 支持 `v-model:checked="val"` 双向绑定
+- 开启时显示文字"启用"，关闭时显示"禁用"
+- `disabled` 为 true 时点击不触发任何事件

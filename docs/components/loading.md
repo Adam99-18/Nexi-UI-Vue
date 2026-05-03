@@ -1,6 +1,6 @@
 # Loading 加载
 
-加载中状态组件，自定义加载图标和文字提示。
+加载中状态组件，使用自定义 GIF 动画图标和可配置文字提示。
 
 ## 何时使用
 
@@ -11,7 +11,7 @@
 
 ### 基础用法
 
-:::demo 通过 `loading` 属性控制显示状态。
+:::demo 通过 `loading` 控制显示，默认文字"加载中"。
 ```vue
 <template>
   <NexiLoading :loading="true" />
@@ -19,30 +19,15 @@
 ```
 :::
 
-### 自定义文字
+### 自定义文字和样式
 
-:::demo 通过 `text` 属性自定义加载提示文字。
+:::demo 通过 `text`、`fontSize`、`fontColor`、`width` 控制外观。
 ```vue
 <template>
   <div>
     <NexiLoading :loading="true" text="数据加载中，请稍候..." />
+    <NexiLoading :loading="true" text="处理中" font-size="16px" font-color="#52c41a" width="32px" />
   </div>
-</template>
-```
-:::
-
-### 自定义样式
-
-:::demo 通过 `fontSize`、`fontColor`、`width` 控制外观。
-```vue
-<template>
-  <NexiLoading
-    :loading="true"
-    text="处理中"
-    font-size="16px"
-    font-color="#52c41a"
-    width="32px"
-  />
 </template>
 ```
 :::
@@ -58,3 +43,8 @@
 | width | 加载图标宽度 | `string` | `24px` | 否 |
 | fontSize | 文字字号 | `string` | `14px` | 否 |
 | fontColor | 文字颜色 | `string` | `var(--theme-default-color)` | 否 |
+
+## 注意事项
+
+- 加载图标使用 CDN GIF 动画（`loading.gif`），离线环境不会显示动画
+- 组件使用 `<a-spin>` + 自定义 `indicator` 渲染

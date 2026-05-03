@@ -1,6 +1,6 @@
 # DropDown 下拉菜单
 
-带权限过滤的下拉菜单组件。菜单项可通过 `auth` 字段控制可见性。
+带权限过滤的下拉菜单组件，基于 ant-design-vue Dropdown 封装。
 
 ## 何时使用
 
@@ -17,10 +17,11 @@
 <template>
   <NexiDropDown
     :options="[
-      { label: '编辑', key: 'edit', action: 'edit' },
-      { label: '删除', key: 'delete', action: 'delete' },
-      { label: '导出', key: 'export', action: 'export' },
+      { label: '编辑', action: 'edit' },
+      { label: '删除', action: 'delete' },
+      { label: '导出', action: 'export' },
     ]"
+    @click="(e) => console.log(e.key, e.action)"
   >
     <NexiButton>操作</NexiButton>
   </NexiDropDown>
@@ -28,18 +29,20 @@
 ```
 :::
 
-### 带分隔线
+### 带分隔线和权限
 
-:::demo 设置 `divider: true` 的项会渲染为分隔线。
+:::demo 设置 `divider: true` 渲染分隔线，设置 `auth` 控制可见性。
 ```vue
 <template>
   <NexiDropDown
     :options="[
-      { label: '查看详情', key: 'view' },
-      { label: '编辑', key: 'edit' },
+      { label: '查看详情' },
+      { label: '编辑' },
       { divider: true },
-      { label: '删除', key: 'delete', action: 'delete' },
+      { label: '删除', action: 'delete' },
+      { label: '管理', auth: ['admin'] },
     ]"
+    @click="(e) => console.log(e)"
   >
     <NexiButton type="link">更多</NexiButton>
   </NexiDropDown>
@@ -53,14 +56,14 @@
 
 | 参数 | 说明 | 类型 | 默认值 | 必填 |
 |------|------|------|--------|------|
-| options | 菜单项列表 | `Array<{label, key, auth?, action?, divider?}>` | - | 是 |
-| item | 当前行数据（传递给事件回调） | `object` | `{}` | 否 |
+| options | 菜单项列表 | `Array<{label, action?, auth?, divider?}>` | — | 是 |
+| item | 当前行数据（合并到事件回调中） | `object` | `{}` | 否 |
 
 ### Events
 
 | 事件名 | 说明 | 回调参数 |
 |--------|------|----------|
-| click | 点击菜单项 | `({ item, key, action })` |
+| click | 点击菜单项 | `({ ...item, key: string, action: any })` |
 
 ### Slots
 
@@ -70,6 +73,7 @@
 
 ## 注意事项
 
-- 菜单项设置 `auth` 后会自动调用 `usePermission(auth)` 校验权限，无权限的项不渲染
-- `divider` 为 `true` 时该项渲染为分隔线，不会触发 click 事件
+- 菜单项设置 `auth` 后自动调用 `usePermission(auth)` 校验权限，无权限项不渲染
+- `divider: true` 的项渲染为 `<a-menu-divider>`，不触发 click 事件
 - 触发器自动包裹 `<a>` 标签并阻止事件冒泡
+- 点击回调中 `key` 为 `String(index)`，`action` 为菜单项配置的 action 值

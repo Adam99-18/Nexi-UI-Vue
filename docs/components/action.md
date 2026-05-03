@@ -1,68 +1,68 @@
 # Action 操作列
 
-表格操作列组件，支持 Popconfirm 确认、Tooltip 提示、异步加载、权限过滤。
+动态操作按钮组，支持权限控制、tooltip、popConfirm 二次确认、异步操作 loading。常用于表格操作列。
 
 ## 何时使用
 
-- 表格每行的操作按钮（编辑、删除、查看等）
-- 需要统一管理操作按钮权限和交互的场景
+- 表格行操作列（查看、编辑、删除等）
+- 需要权限控制的操作入口
+- 需要二次确认的危险操作（popConfirm）
+- 需要异步 loading 的操作
 
 ## 代码演示
 
 ### 基础用法
 
-:::demo 通过 `actions` 数组定义操作按钮。
+:::demo 通过 `actions` 配置操作项，自动渲染按钮组。
 ```vue
 <template>
   <NexiAction
     :actions="[
-      { key: 'view', label: '查看', onClick: () => console.log('view') },
-      { key: 'edit', label: '编辑', onClick: () => console.log('edit') },
-      { key: 'delete', label: '删除', onClick: () => console.log('delete') },
-    ]"
-  />
-</template>
-```
-:::
-
-### 带确认弹窗
-
-:::demo 设置 `confirm` 属性为操作添加确认提示。
-```vue
-<template>
-  <NexiAction
-    :divider="true"
-    :actions="[
-      { key: 'view', label: '查看' },
-      { key: 'edit', label: '编辑' },
-      {
-        key: 'delete',
-        label: '删除',
-        danger: true,
-        confirm: { title: '确定要删除吗？', okText: '确定', cancelText: '取消' },
+      { key: 'view', label: '查看', icon: 'search', onClick: () => console.log('View') },
+      { key: 'edit', label: '编辑', icon: 'edit', onClick: () => console.log('Edit') },
+      { key: 'delete', label: '删除', icon: 'delete',
+        onClick: () => console.log('Delete'),
+        popConfirm: { title: '确认删除？' },
       },
     ]"
+    :column-params="{ id: 1 }"
   />
 </template>
 ```
 :::
 
-### 带 Tooltip
+### 异步操作 + Loading
 
-:::demo 通过 `tooltip` 属性为操作添加悬浮提示。
+:::demo 异步 onClick 自动管理 loading 状态，操作期间按钮显示加载动画。
 ```vue
 <template>
   <NexiAction
-    :divider="true"
     :actions="[
-      { key: 'view', label: '查看', tooltip: { title: '查看详情' } },
-      { key: 'edit', label: '编辑', tooltip: { title: '编辑此项' } },
-      { key: 'delete', label: '删除', tooltip: { title: '删除此项' } },
+      { key: 'sync', label: '同步', icon: 'refresh',
+        onClick: async (params) => {
+          await fetch('/api/sync', { method: 'POST', body: JSON.stringify(params) })
+        },
+      },
+    ]"
+    :column-params="{ id: record.id }"
+  />
+</template>
+```
+
+### 权限控制
+
+:::demo 通过 `auth` 配置权限码，无权限时按钮完全不渲染。通过 `isShow` 控制可见性。
+```vue
+<template>
+  <NexiAction
+    :actions="[
+      { key: 'view', label: '查看', auth: [] },
+      { key: 'admin', label: '管理', auth: ['admin'] },
+      { key: 'hidden', label: '隐藏项', isShow: false },
     ]"
   />
 </template>
 ```
-:::
 
 ## API
 
@@ -70,30 +70,30 @@
 
 | 参数 | 说明 | 类型 | 默认值 | 必填 |
 |------|------|------|--------|------|
-| actions | 操作项列表 | `ActionItem[]` | - | 是 |
-| rowKey | 行标识字段名 | `string` | `""` | 否 |
-| divider | 是否显示操作间分隔线 | `boolean` | `true` | 否 |
-| columnParams | 传递给 onClick 的参数 | `object` | - | 否 |
+| actions | 操作项列表 | `ActionItem[]` | `[]` | 是 |
+| columnParams | 传给 onClick 的列参数 | `object` | `undefined` | 否 |
+| divider | 按钮间是否显示分隔线 | `boolean` | `true` | 否 |
+| rowKey | 行主键 | `string` | `''` | 否 |
 
-### ActionItem 类型
+### ActionItem 配置
 
-| 属性 | 说明 | 类型 |
-|------|------|------|
-| key | 唯一标识 | `string` |
-| label | 显示文本 | `string` |
-| auth | 权限标识，为空不校验 | `string[]` |
-| icon | 图标名称 | `string` |
-| type | 按钮类型 | `link` \| `text` \| `default` \| `primary` \| `dashed` |
-| danger | 是否为危险操作（红色） | `boolean` |
-| disabled | 是否禁用 | `boolean` |
-| visible | 是否可见 | `boolean` \| `((params) => boolean)` |
-| confirm | 确认弹窗配置 | `string` \| `{ title, okText, cancelText, icon, color }` |
-| tooltip | 提示配置 | `string` \| `{ title, placement, color }` |
-| onClick | 点击回调，支持 async | `(params?: any) => any \| Promise<any>` |
+| 字段 | 说明 | 类型 | 必填 |
+|------|------|------|------|
+| key | 唯一标识 | `string` | 是 |
+| label | 按钮文字 | `string` | 否 |
+| icon | 图标名称（NexiIcon 图标名） | `string` | 否 |
+| auth | 权限码数组，空数组或无此字段表示无权限限制 | `string[]` | 否 |
+| isShow | 是否显示（默认 true） | `boolean` | 否 |
+| onClick | 点击回调，支持同步/异步函数，自动 debounce | `(params?: any) => void \| Promise<void>` | 否 |
+| popConfirm | 气泡确认框配置（ant-design-vue Popconfirm props） | `object` | 否 |
+| tooltip | 提示文字或完整 Tooltip 配置 | `string \| TooltipProps` | 否 |
 
 ## 注意事项
 
-- `onClick` 为异步函数时，点击后按钮自动进入 loading 状态，Promise 完成后恢复
-- 非异步函数会自动包裹 debounce 防抖
-- `auth` 为空时不校验权限，所有用户可见
-- 操作按钮默认渲染为 `type="link"` 样式
+- **popConfirm + onClick：** 配置 popConfirm 后，点击先弹出确认框，确认后才执行 onClick，不会被绕过
+- **异步操作：** onClick 返回 Promise 时自动显示 loading 动画
+- **同步操作：** 自动 debounce（lodash-es，trailing 模式）
+- **权限控制：** 使用 `setPermissionResolver` 全局设置权限解析函数
+- **不可变数据：** 内部使用 `{ ...item }` 扩展，不会修改原始 actions 数组
+- **按钮样式：** 操作按钮默认渲染为 `type="link" size="small"` 样式
+- V1.1 完整重写，解决了 TDZ / v-bind 冲突 / VNode 渲染 / popConfirm 绕过 4 个 P0 问题

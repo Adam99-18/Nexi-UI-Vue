@@ -1,6 +1,6 @@
 # InfoCell 信息单元
 
-Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Tooltip。
+Logo + 名称 + 描述的复合展示组件，文本超长时自动省略并显示 Tooltip。
 
 ## 何时使用
 
@@ -16,9 +16,10 @@ Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Toolti
 <template>
   <div style="width: 320px;">
     <NexiInfoCell
-      logo-url="https://via.placeholder.com/40"
+      logo-url="https://via.placeholder.com/60"
       name="设计团队"
-      description="负责产品 UI/UX 设计工作，包含视觉设计、交互设计、用户研究"
+      description="负责产品 UI/UX 设计工作"
+      @click-logo="() => console.log('logo clicked')"
     />
   </div>
 </template>
@@ -27,18 +28,15 @@ Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Toolti
 
 ### 仅名称
 
-:::demo 不传描述信息时仅展示名称。
+不传 description 时仅展示名称。
+
 ```vue
 <template>
   <div style="width: 320px;">
-    <NexiInfoCell
-      logo-url="https://via.placeholder.com/40"
-      name="张三"
-    />
+    <NexiInfoCell logo-url="https://via.placeholder.com/60" name="张三" />
   </div>
 </template>
 ```
-:::
 
 ## API
 
@@ -54,15 +52,10 @@ Logo + 名称 + 描述的复合展示组件，文本超长时自动显示 Toolti
 
 | 事件名 | 说明 | 回调参数 |
 |--------|------|----------|
-| click-logo | 点击 Logo | - |
-
-### Slots
-
-| 插槽名 | 说明 |
-|--------|------|
-| customTitle | 自定义标题内容 |
+| click-logo | 点击 Logo 区域 | — |
 
 ## 注意事项
 
-- 名称和描述超长时自动省略并显示 Tooltip（通过 CustomOverflowSuspension 实现）
-- `logoUrl` 为空时会使用默认占位图
+- 名称和描述超长时自动省略并通过 `CustomOverflowSuspension` 显示 Tooltip
+- `logoUrl` 为空时使用 CDN 默认占位图
+- Logo 默认 60x60 圆角展示，点击触发 `click-logo` 事件
