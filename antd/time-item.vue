@@ -26,7 +26,7 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:value"]);
 const activeKey = ref("0");
-const computedField = ref<any>(null);
+const computedField = ref<any>(undefined);
 watch(
   () => props.field,
   () => {
@@ -38,12 +38,18 @@ watch(
       computedField.value = props.field();
       return;
     }
-    computedField.value = props.form[props.field] || null;
+    computedField.value = props.form[props.field] || undefined;
   },
   { immediate: true }
 );
 const changeTime = (value: any) => {
-  // 将传入的值转换为moment对象，并设定时间为每天的开始和结束
+  if (!value || !Array.isArray(value) || value.length < 2) {
+    computedField.value = undefined;
+    activeKey.value = "0";
+    emits("update:value", null);
+    return;
+  }
+
   const formattedValue = value.map((date: string | Date) => {
     if (date) {
       return moment(date).startOf("day");
@@ -51,19 +57,16 @@ const changeTime = (value: any) => {
     return null;
   });
 
-  // 如果结束日期需要设定为23:59:59，这里进行调整
-  if (formattedValue.length > 1) {
+  if (formattedValue.length > 1 && formattedValue[1]) {
     formattedValue[1] = moment(formattedValue[1]).endOf("day");
   }
 
-  // 更新内部状态
   computedField.value = formattedValue;
 
-  // 发出更新事件，使用Unix时间戳
   emits(
     "update:value",
-    formattedValue?.length
-      ? [Number(formattedValue[0].format("x")), Number(formattedValue[1].format("x"))]
+    formattedValue?.length && formattedValue[0]
+      ? [Number(formattedValue[0].format("x")), Number(formattedValue[formattedValue.length - 1].format("x"))]
       : null
   );
 };
@@ -99,10 +102,9 @@ const handleItem = (key: number) => {
 };
 
 const reset = () => {
-  computedField.value = null;
+  computedField.value = undefined;
   activeKey.value = "0";
-
-  emits("update:value", computedField.value);
+  emits("update:value", null);
 };
 defineExpose({ reset, handleItem });
 </script>

@@ -237,7 +237,10 @@ const setData = (ids: Array<string | number>) => {
 const getPopupContainer: any = () => {
   if (!props.isOwner) return;
   if (typeof window !== "undefined") {
-    return document.querySelector(props.container) || document.body;
+    if (props.container) {
+      return document.querySelector(props.container) || document.body;
+    }
+    return document.body;
   }
 };
 
