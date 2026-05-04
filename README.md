@@ -35,7 +35,7 @@ import { Button as NexiButton, Table as NexiTable } from 'nexi-ui'
 
 ## 文档
 
-完整文档请访问：[在线文档](https://github.com/Adam99-18/Nexi-UI-Vue)
+完整文档请访问：[在线文档](https://nexiui.top/)
 
 <!-- 本地运行文档：
 
