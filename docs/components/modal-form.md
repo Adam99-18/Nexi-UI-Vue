@@ -100,7 +100,6 @@ const handleSubmit = async (values: any) => {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { NexiButton, NexiSwitch, NexiModalForm } from 'nexi-ui'
 
 const customRef = ref()
 const customColumns = [
