@@ -29,7 +29,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { NexiButton, NexiModalTip } from 'nexi-ui'
 const modalTipRef = ref()
 </script>
 ```
