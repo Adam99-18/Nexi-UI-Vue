@@ -68,7 +68,6 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { NexiTable, NexiButton, NexiAction } from 'nexi-ui'
 
 const loading = ref(false)
 const tableData = ref([

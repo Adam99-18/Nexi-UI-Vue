@@ -25,7 +25,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { NexiWeekCalendar } from 'nexi-ui'
 
 const currentDate = ref('2025/1/15')
 const scheduleList = ref([

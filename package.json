@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "build": "vite build && node scripts/build-types.mjs",
-    "docs:dev": "vitepress dev docs --port 5173",
+    "docs:dev": "vitepress dev docs --port 5180",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "prepublishOnly": "npm run build"

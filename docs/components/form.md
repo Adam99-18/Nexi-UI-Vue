@@ -46,7 +46,6 @@ const formData = reactive({ name: '', desc: '' })
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { NexiForm } from 'nexi-ui'
 
 const formRef = ref()
 const formData = reactive({

@@ -44,7 +44,6 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { NexiSearchForm } from 'nexi-ui'
 
 const searchData = reactive({
   keyword: '',
