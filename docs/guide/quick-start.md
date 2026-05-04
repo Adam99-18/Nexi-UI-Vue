@@ -118,7 +118,6 @@ const pagination = reactive({ current: 1, pageSize: 10, total: 2 })
 </template>
 
 <script lang="ts" setup>
-import { NexiButton, NexiModal } from 'nexi-ui'
 import { ref } from 'vue'
 
 const modalRef = ref()

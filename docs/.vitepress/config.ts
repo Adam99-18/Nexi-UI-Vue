@@ -8,6 +8,7 @@ export default defineConfig({
   description: 'Nexi-UI Vue 4.x — 企业级后台管理系统组件库',
   lang: 'zh-CN',
   base: '/',
+  cleanUrls: true,
 
   head: [['link', { rel: 'icon', href: '/Nexi-logo.png' }]],
 
